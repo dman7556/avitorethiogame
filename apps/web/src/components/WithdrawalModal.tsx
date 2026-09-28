@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { X, AlertCircle, CheckCircle } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
-import { GAME_CONSTANTS } from '@sky-rush/shared';
+import { GAME_CONSTANTS } from '../shared/types';
 import { apiUrl } from '../lib/config';
 
 interface WithdrawalModalProps {

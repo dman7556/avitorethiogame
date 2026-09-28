@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import type { UserProfile } from '@sky-rush/shared';
+import type { UserProfile } from '../shared/types';
 import { API_BASE } from '../lib/config';
 
 interface AuthContextType {

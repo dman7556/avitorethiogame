@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Minus, Plus, X, LogIn } from 'lucide-react';
-import { GAME_CONSTANTS, BetStatus } from '@sky-rush/shared';
+import { GAME_CONSTANTS, BetStatus } from '../shared/types';
 import { useGame, useTickMultiplier } from '../contexts/GameContext';
 import { useNavigate } from 'react-router-dom';
 import { AudioEvents } from '../audio';

@@ -10,7 +10,6 @@
     "lint": "eslint . --ext ts,tsx"
   },
   "dependencies": {
-    "@sky-rush/shared": "*",
     "framer-motion": "^11.2.10",
     "lucide-react": "^0.378.0",
     "react": "^18.3.1",

@@ -8,7 +8,7 @@
 // ==========================================
 
 import { gameAudio } from './GameAudioManager';
-import type { GamePhase } from '@sky-rush/shared';
+import type { GamePhase } from '../shared/types';
 
 let currentPhase: GamePhase = 'WAITING' as GamePhase;
 let currentCountdown: number | null = null;

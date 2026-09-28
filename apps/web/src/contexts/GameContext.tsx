@@ -8,8 +8,8 @@ import type {
   RoundHistoryItem,
   PublicBet,
   ChatMessageEvent,
-} from '@sky-rush/shared';
-import { emitWithTimeout, AckTimeoutError } from '@sky-rush/shared';
+} from '../shared/types';
+import { emitWithTimeout, AckTimeoutError } from '../shared/types';
 import { apiUrl, socketOrigin } from '../lib/config';
 
 interface BetState {

@@ -3,7 +3,7 @@ import { useGame } from '../contexts/GameContext';
 import { useAuth } from '../contexts/AuthContext';
 import { useAuthGuard } from '../hooks/useAuthGuard';
 import { useNavigate } from 'react-router-dom';
-import { GAME_CONSTANTS } from '@sky-rush/shared';
+import { GAME_CONSTANTS } from '../shared/types';
 import BetCard from './BetCard';
 
 export default function BettingPanel() {

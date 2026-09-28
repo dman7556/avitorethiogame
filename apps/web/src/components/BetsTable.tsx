@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useGame } from '../contexts/GameContext';
-import type { BetStatus } from '@sky-rush/shared';
+import type { BetStatus } from '../shared/types';
 
 type Tab = 'ALL' | 'PREVIOUS' | 'TOP';
 
