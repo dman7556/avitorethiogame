@@ -20,3 +20,96 @@ C:\Users\hp\Desktop\avatior one\apps\server\src\analytics\metrics-engine.ts:122:
 Can't reach database server at `aws-0-eu-west-2.pooler.supabase.com:6543`
 
 Please make sure your database server is running at `aws-0-eu-west-2.pooler.supabase.com:6543`.
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.findMany()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:183:29
+
+  180 }
+  181 
+  182 async getRecentRounds(limit = 20) {
+→ 183   return prisma.gameRound.findMany(
+Can't reach database server at `aws-0-eu-west-2.pooler.supabase.com:6543`
+
+Please make sure your database server is running at `aws-0-eu-west-2.pooler.supabase.com:6543`.
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async GameEngine.broadcastHistory (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:396:20)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:254:7)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:43:7) {
+  code: 'P1001',
+  clientVersion: '5.22.0',
+  meta: {
+    modelName: 'GameRound',
+    database_host: 'aws-0-eu-west-2.pooler.supabase.com',
+    database_port: 6543
+  }
+}
+[METRICS] slowTick: 
+Invalid `prisma.riskEvent.count()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\analytics\metrics-engine.ts:104:24
+
+  101 prisma.withdrawal.count({ where: { status: 'PENDING' } }),
+  102 prisma.wallet.aggregate({ _sum: { balance: true, reserved: true }, _count: true }),
+  103 sessionTracker.getActiveSocketCount(),
+→ 104 prisma.riskEvent.count(
+Can't reach database server at `aws-0-eu-west-2.pooler.supabase.com:6543`
+
+Please make sure your database server is running at `aws-0-eu-west-2.pooler.supabase.com:6543`.
+node:internal/modules/cjs/loader:1212
+  const err = new Error(message);
+              ^
+
+Error: Cannot find module '../../shared/types'
+Require stack:
+- C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts
+- C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts
+- C:\Users\hp\Desktop\avatior one\apps\server\src\index.ts
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1212:15)
+    at nextResolveSimple (C:\Users\hp\Desktop\avatior one\node_modules\tsx\dist\register-OY9cqBEN.cjs:10:1006)
+    at C:\Users\hp\Desktop\avatior one\node_modules\tsx\dist\register-OY9cqBEN.cjs:9:4959
+    at C:\Users\hp\Desktop\avatior one\node_modules\tsx\dist\register-OY9cqBEN.cjs:9:4261
+    at resolveTsPaths (C:\Users\hp\Desktop\avatior one\node_modules\tsx\dist\register-OY9cqBEN.cjs:10:759)
+    at C:\Users\hp\Desktop\avatior one\node_modules\tsx\dist\register-OY9cqBEN.cjs:10:1199
+    at j._resolveFilename (file:///C:/Users/hp/Desktop/avatior%20one/node_modules/tsx/dist/register-SoqaU4rg.mjs:2:17957)
+    at Module._load (node:internal/modules/cjs/loader:1043:27)
+    at Module.require (node:internal/modules/cjs/loader:1298:19)
+    at require (node:internal/modules/helpers:182:18) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\hp\\Desktop\\avatior one\\apps\\server\\src\\game\\RoundManager.ts',
+    'C:\\Users\\hp\\Desktop\\avatior one\\apps\\server\\src\\game\\GameEngine.ts',
+    'C:\\Users\\hp\\Desktop\\avatior one\\apps\\server\\src\\index.ts'
+  ]
+}
+
+Node.js v20.19.4
+node:internal/modules/cjs/loader:1212
+  const err = new Error(message);
+              ^
+
+Error: Cannot find module '../../shared/types'
+Require stack:
+- C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts
+- C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts
+- C:\Users\hp\Desktop\avatior one\apps\server\src\index.ts
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1212:15)
+    at nextResolveSimple (C:\Users\hp\Desktop\avatior one\node_modules\tsx\dist\register-OY9cqBEN.cjs:10:1006)
+    at C:\Users\hp\Desktop\avatior one\node_modules\tsx\dist\register-OY9cqBEN.cjs:9:4959
+    at C:\Users\hp\Desktop\avatior one\node_modules\tsx\dist\register-OY9cqBEN.cjs:9:4261
+    at resolveTsPaths (C:\Users\hp\Desktop\avatior one\node_modules\tsx\dist\register-OY9cqBEN.cjs:10:759)
+    at C:\Users\hp\Desktop\avatior one\node_modules\tsx\dist\register-OY9cqBEN.cjs:10:1199
+    at j._resolveFilename (file:///C:/Users/hp/Desktop/avatior%20one/node_modules/tsx/dist/register-SoqaU4rg.mjs:2:17957)
+    at Module._load (node:internal/modules/cjs/loader:1043:27)
+    at Module.require (node:internal/modules/cjs/loader:1298:19)
+    at require (node:internal/modules/helpers:182:18) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\hp\\Desktop\\avatior one\\apps\\server\\src\\game\\RoundManager.ts',
+    'C:\\Users\\hp\\Desktop\\avatior one\\apps\\server\\src\\game\\GameEngine.ts',
+    'C:\\Users\\hp\\Desktop\\avatior one\\apps\\server\\src\\index.ts'
+  ]
+}
+
+Node.js v20.19.4

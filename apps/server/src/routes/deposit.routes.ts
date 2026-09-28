@@ -1,5 +1,5 @@
 import { Router, Response } from 'express';
-import multer from 'multer';
+import multer, { MulterError } from 'multer';
 import { z } from 'zod';
 import { finLog } from '../lib/logger';
 import { Decimal } from '@prisma/client/runtime/library';
@@ -10,13 +10,18 @@ import { cloudinaryService } from '../services/cloudinary.service';
 import { money } from '../services/money.helper';
 import { PaymentMethod } from '../shared/types';
 
+// Extend AuthRequest to include multer file
+interface AuthRequestWithFile extends AuthRequest {
+  file?: Express.Multer.File;
+}
+
 // Configure multer for file uploads (memory storage)
 // 5MB cap — payment screenshots don't need more; memory storage means an
 // oversized/unbounded upload would otherwise buffer entirely in RAM.
 const upload = multer({
   storage: multer.memoryStorage(),
   limits: { fileSize: 5 * 1024 * 1024, files: 1 },
-  fileFilter: (_req, file, cb) => {
+  fileFilter: (_req: any, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
     if (['image/jpeg', 'image/jpg', 'image/png', 'image/webp'].includes(file.mimetype)) {
       cb(null, true);
     } else {
@@ -32,21 +37,23 @@ router.use(authenticate);
 
 // Create deposit
 const createDepositSchema = z.object({
-  amount: z.custom<Decimal>((v) => v instanceof Decimal).optional(),
+  amount: z.string().optional(),
   paymentMethod: z.enum([PaymentMethod.TELEBIRR, PaymentMethod.CBE]),
 });
 
-router.post('/', upload.single('screenshot'), async (req: AuthRequest, res: Response) => {
+router.post('/', upload.single('screenshot'), async (req: AuthRequestWithFile, res: Response) => {
   try {
     finLog.deposit({ requestId: req.requestId, event: 'request_received', userId: req.user?.userId, hasFile: !!req.file });
     
-    // Parse and validate request body. Amount arrives as a string from the
-    // multipart form and is parsed STRICTLY into a decimal at the boundary
-    // (audit M7) — parseFloat used to accept garbage like "10.999" and
-    // exponent forms before validation could see them.
+    const body = createDepositSchema.parse({
+      amount: req.body.amount,
+      paymentMethod: req.body.paymentMethod?.toUpperCase(),
+    });
+
+    // Parse amount if provided
     let amountDecimal: Decimal | undefined;
-    if (req.body.amount !== undefined && req.body.amount !== null && String(req.body.amount).trim() !== '') {
-      const parsed = money.fromAmountString(String(req.body.amount));
+    if (body.amount !== undefined && body.amount !== null && body.amount.trim() !== '') {
+      const parsed = money.fromAmountString(body.amount);
       if (!parsed) {
         res.status(400).json({
           success: false,
@@ -57,10 +64,6 @@ router.post('/', upload.single('screenshot'), async (req: AuthRequest, res: Resp
       }
       amountDecimal = parsed;
     }
-    const body = createDepositSchema.parse({
-      amount: amountDecimal,
-      paymentMethod: req.body.paymentMethod?.toUpperCase(),
-    });
 
     // Validate screenshot file
     if (!req.file) {
@@ -73,7 +76,7 @@ router.post('/', upload.single('screenshot'), async (req: AuthRequest, res: Resp
       return;
     }
 
-    finLog.deposit({ requestId: req.requestId, event: 'creating', userId: req.user!.userId, amount: body.amount ? String(body.amount) : 'UNVERIFIED', method: body.paymentMethod, fileName: req.file.originalname });
+    finLog.deposit({ requestId: req.requestId, event: 'creating', userId: req.user!.userId, amount: amountDecimal ? String(amountDecimal) : 'UNVERIFIED', method: body.paymentMethod, fileName: req.file.originalname });
 
     // Save screenshot to Cloudinary
     const { url: screenshotUrl, publicId: screenshotPublicId } = await uploadService.saveFile(req.file);

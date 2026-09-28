@@ -161,3 +161,17 @@ export interface AuthTokenPayload {
   username?: string;
   role: 'USER' | 'ADMIN';
 }
+
+export interface SystemSettings {
+  minimumDeposit: number;
+  maximumDeposit: number;
+  minimumRemainingBalance: number;
+  paymentMethods: {
+    [key in PaymentMethod]: {
+      enabled: boolean;
+      displayName: string;
+      instructions: string;
+      accountInfo?: string;
+    };
+  };
+}
