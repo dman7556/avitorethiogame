@@ -1,5 +1,5 @@
 import { Router, Response } from 'express';
-import multer, { MulterError } from 'multer';
+import * as multer from 'multer';
 import { z } from 'zod';
 import { finLog } from '../lib/logger';
 import { Decimal } from '@prisma/client/runtime/library';
@@ -89,11 +89,11 @@ router.post('/', upload.single('screenshot'), async (req: AuthRequestWithFile, r
     try {
       deposit = await depositService.createDeposit({
         userId: req.user!.userId,
-        amount: body.amount ?? undefined, // undefined = amount not self-declared; admin verifies
+        amount: amountDecimal ?? undefined, // undefined = amount not self-declared; admin verifies
         paymentMethod: body.paymentMethod,
         screenshotUrl,
         screenshotPublicId,
-        isAmountUnverified: !body.amount, // Flag to indicate amount needs manual verification
+        isAmountUnverified: !amountDecimal, // Flag to indicate amount needs manual verification
       });
     } catch (dbError: any) {
       // Failure/recovery: don't leak orphaned Cloudinary assets when the DB
