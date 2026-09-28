@@ -23,7 +23,7 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import prisma from '../lib/prisma';
 import { betManager } from '../game/BetManager';
-import { GamePhase, BetStatus } from '../../shared/types';
+import { GamePhase, BetStatus } from '../shared/types';
 
 const TEST_PREFIX = 'c1-test-';
 

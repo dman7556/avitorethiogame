@@ -1,5 +1,5 @@
 import prisma from '../lib/prisma';
-import { GAME_CONSTANTS, PaymentMethod, SystemSettings } from '../../shared/types';
+import { GAME_CONSTANTS, PaymentMethod, SystemSettings } from '../shared/types';
 
 const DEFAULT_SETTINGS: SystemSettings = {
   minimumDeposit: GAME_CONSTANTS.MINIMUM_DEPOSIT,

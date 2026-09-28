@@ -4,7 +4,7 @@ import { walletService } from '../services/wallet.service';
 import { betManager, BetError } from '../game/BetManager';
 import { chatService, ChatError } from '../services/chat.service';
 import { GameEngine } from '../game/GameEngine';
-import { GamePhase, BetStatus } from '../../shared/types';
+import { GamePhase, BetStatus } from '../shared/types';
 import prisma from '../lib/prisma';
 import { supabaseVerifyUser } from '../lib/supabase-auth';
 import { sessionTracker } from '../analytics/session-tracker';

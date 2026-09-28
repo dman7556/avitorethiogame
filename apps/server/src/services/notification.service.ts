@@ -1,5 +1,5 @@
 import prisma from '../lib/prisma';
-import { NotificationType } from '../../shared/types';
+import { NotificationType } from '../shared/types';
 
 export class NotificationService {
   /**

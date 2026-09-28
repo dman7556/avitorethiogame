@@ -1,5 +1,5 @@
 import prisma from '../lib/prisma';
-import { GamePhase } from '../../shared/types';
+import { GamePhase } from '../shared/types';
 
 export class RoundManager {
   private currentRound: {

@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { authenticate, AuthRequest } from '../middleware/auth';
 import { withdrawalService, WithdrawalError } from '../services/withdrawal.service';
 import { money } from '../services/money.helper';
-import { PaymentMethod } from '../../shared/types';
+import { PaymentMethod } from '../shared/types';
 import { finLog } from '../lib/logger';
 
 const router = Router();

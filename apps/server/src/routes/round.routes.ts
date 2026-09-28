@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 import prisma from '../lib/prisma';
-import { GamePhase } from '../../shared/types';
+import { GamePhase } from '../shared/types';
 import { safeRoundView } from '../lib/round-sanitize';
 import { fairnessService } from '../game/fairness';
 

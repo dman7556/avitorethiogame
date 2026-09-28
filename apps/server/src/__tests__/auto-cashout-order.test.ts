@@ -20,7 +20,7 @@ import prisma from '../lib/prisma';
 import { GameEngine } from '../game/GameEngine';
 import { Server as SocketIOServer } from 'socket.io';
 import http from 'http';
-import { GamePhase, BetStatus } from '../../shared/types';
+import { GamePhase, BetStatus } from '../shared/types';
 
 const TEST_PREFIX = 'h2-test-';
 let io: SocketIOServer;

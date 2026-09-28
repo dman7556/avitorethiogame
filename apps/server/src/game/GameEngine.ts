@@ -5,7 +5,7 @@ import { roundManager } from './RoundManager';
 import { betManager } from './BetManager';
 import { fairnessService } from './fairness';
 import prisma from '../lib/prisma';
-import { GamePhase, GAME_CONSTANTS } from '../../shared/types';
+import { GamePhase, GAME_CONSTANTS } from '../shared/types';
 import { trackEvent } from '../analytics/event-pipeline';
 import { metricsEngine } from '../analytics/metrics-engine';
 

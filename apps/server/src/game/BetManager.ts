@@ -1,5 +1,5 @@
 import prisma from '../lib/prisma';
-import { GamePhase, BetStatus } from '../../shared/types';
+import { GamePhase, BetStatus } from '../shared/types';
 import { Decimal } from '@prisma/client/runtime/library';
 import { multiplierEngine } from './MultiplierEngine';
 import { trackEvent } from '../analytics/event-pipeline';

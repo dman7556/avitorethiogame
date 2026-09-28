@@ -1,5 +1,5 @@
 import prisma from '../lib/prisma';
-import { AuditAction } from '../../shared/types';
+import { AuditAction } from '../shared/types';
 
 export class AuditService {
   /**

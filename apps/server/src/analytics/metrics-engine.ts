@@ -3,7 +3,7 @@ import { realtimeBridge } from './realtime-bridge';
 import { sessionTracker } from './session-tracker';
 import { eventPipeline } from './event-pipeline';
 import { alertsService, DEFAULT_ALERT_THRESHOLDS } from './alerts.service';
-import { GAME_CONSTANTS } from '../../shared/types';
+import { GAME_CONSTANTS } from '../shared/types';
 
 /**
  * PLATFORM METRICS + FINANCIAL RISK MONITORING + SYSTEM HEALTH.

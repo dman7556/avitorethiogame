@@ -7,7 +7,7 @@ import { auditService } from '../services/audit.service';
 import { settingsService } from '../services/settings.service';
 import { z } from 'zod';
 import { Decimal } from '@prisma/client/runtime/library';
-import { AuditAction, DepositStatus, WithdrawalStatus } from '../../shared/types';
+import { AuditAction, DepositStatus, WithdrawalStatus } from '../shared/types';
 import { money } from '../services/money.helper';
 
 const router = Router();
