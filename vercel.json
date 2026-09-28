@@ -1,12 +1,17 @@
 {
   "version": 2,
-  "framework": "vite",
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist",
-  "installCommand": "npm ci",
+  "builds": [
+    {
+      "src": "apps/web/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "apps/web/dist"
+      }
+    }
+  ],
   "rewrites": [
     {
-      "source": "/((?!api/|uploads/|socket\\.io/).*)",
+      "source": "/(.*)",
       "destination": "/index.html"
     }
   ]
