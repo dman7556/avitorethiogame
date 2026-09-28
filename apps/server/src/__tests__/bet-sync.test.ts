@@ -23,7 +23,7 @@ import {
   BetSyncService,
   SYNC_RECENT_WINDOW_MS,
 } from '../services/bet-sync.service';
-import { GamePhase, BetStatus } from '@sky-rush/shared';
+import { GamePhase, BetStatus } from '../../shared/types';
 
 const TEST_PREFIX = 'sync1-';
 

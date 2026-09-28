@@ -26,7 +26,7 @@
  */
 import prisma from '../lib/prisma';
 import { Decimal } from '@prisma/client/runtime/library';
-import { WithdrawalStatus, PaymentMethod, NotificationType, GAME_CONSTANTS } from '@sky-rush/shared';
+import { WithdrawalStatus, PaymentMethod, NotificationType, GAME_CONSTANTS } from '../../shared/types';
 import { trackEvent } from '../analytics/event-pipeline';
 import { metricsEngine } from '../analytics/metrics-engine';
 import { settingsService } from './settings.service';

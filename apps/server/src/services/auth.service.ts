@@ -1,6 +1,6 @@
 import { env } from '../lib/env';
 import bcrypt from 'bcryptjs';
-import type { AuthTokenPayload, UserProfile } from '@sky-rush/shared';
+import type { AuthTokenPayload, UserProfile } from '../shared/types';
 import {
   supabaseSignIn,
   supabaseAdminCreateUser,

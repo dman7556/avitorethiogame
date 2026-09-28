@@ -1,6 +1,6 @@
 import prisma from '../lib/prisma';
 import { Decimal } from '@prisma/client/runtime/library';
-import { TransactionType } from '@sky-rush/shared';
+import { TransactionType } from '../../shared/types';
 
 export class WalletService {
   async getWallet(userId: string) {

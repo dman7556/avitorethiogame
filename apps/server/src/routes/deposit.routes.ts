@@ -8,7 +8,7 @@ import { depositService, DepositError } from '../services/deposit.service';
 import { uploadService, UploadError } from '../services/upload.service';
 import { cloudinaryService } from '../services/cloudinary.service';
 import { money } from '../services/money.helper';
-import { PaymentMethod } from '@sky-rush/shared';
+import { PaymentMethod } from '../../shared/types';
 
 // Configure multer for file uploads (memory storage)
 // 5MB cap — payment screenshots don't need more; memory storage means an

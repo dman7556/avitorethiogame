@@ -3,6 +3,7 @@
     "target": "ES2020",
     "module": "commonjs",
     "lib": ["ES2020"],
+    "rootDir": "./src",
     "outDir": "./dist",
     "strict": true,
     "esModuleInterop": true,
@@ -11,11 +12,8 @@
     "resolveJsonModule": true,
     "declaration": true,
     "sourceMap": true,
-    "moduleResolution": "node",
-    "paths": {
-      "@sky-rush/shared": ["../../packages/shared/src"]
-    }
+    "moduleResolution": "bundler"
   },
-  "include": ["src", "src/types"],
-  "exclude": ["node_modules", "dist"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.spec.ts"]
 }

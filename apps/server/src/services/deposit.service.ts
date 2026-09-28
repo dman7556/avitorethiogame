@@ -13,7 +13,7 @@
  */
 import prisma from '../lib/prisma';
 import { Decimal } from '@prisma/client/runtime/library';
-import { AuditAction, DepositStatus, PaymentMethod, NotificationType } from '@sky-rush/shared';
+import { AuditAction, DepositStatus, PaymentMethod, NotificationType } from '../../shared/types';
 import { settingsService } from './settings.service';
 import { notificationService } from './notification.service';
 import { auditService } from './audit.service';

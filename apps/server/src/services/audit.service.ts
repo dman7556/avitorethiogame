@@ -1,5 +1,5 @@
 import prisma from '../lib/prisma';
-import { AuditAction } from '@sky-rush/shared';
+import { AuditAction } from '../../shared/types';
 
 export class AuditService {
   /**

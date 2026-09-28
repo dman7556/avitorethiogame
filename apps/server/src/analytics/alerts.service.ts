@@ -1,6 +1,6 @@
 import prisma from '../lib/prisma';
 import { realtimeBridge } from './realtime-bridge';
-import { GAME_CONSTANTS } from '@sky-rush/shared';
+import { GAME_CONSTANTS } from '../../shared/types';
 
 /**
  * ADMIN ALERT CENTER.
