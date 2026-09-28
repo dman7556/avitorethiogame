@@ -14,6 +14,6 @@
     "sourceMap": true,
     "moduleResolution": "bundler"
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "src/types/**/*"],
   "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.spec.ts"]
 }

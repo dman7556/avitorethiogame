@@ -1,5 +1,5 @@
 import { Router, Response } from 'express';
-import * as multer from 'multer';
+import multer from 'multer';
 import { z } from 'zod';
 import { finLog } from '../lib/logger';
 import { Decimal } from '@prisma/client/runtime/library';
