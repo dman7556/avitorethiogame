@@ -1,0 +1,272 @@
+================================================================================
+                          QUICK REFERENCE CARD
+================================================================================
+
+ADMIN DEPOSITS APPROVAL
+=======================
+URL: http://localhost:5173/admin/deposits
+
+What admins can do:
+  ✓ View all pending deposits
+  ✓ Search by user name/email
+  ✓ View user info (name, email, phone)
+  ✓ See Cloudinary payment screenshot
+  ✓ Enter credit amount to approve
+  ✓ Confirm with 5-second countdown
+  ✓ Reject deposits with reason
+
+How to approve:
+  1. Click deposit card
+  2. Review details + screenshot
+  3. Click "Approve" button
+  4. Enter credit amount
+  5. Click "Review & Confirm"
+  6. Wait 5 seconds
+  7. Click "Confirm Approval"
+  ✅ Done!
+
+================================================================================
+
+USER DASHBOARD
+==============
+URL: http://localhost:5173/dashboard
+
+What users can do:
+  ✓ View wallet balance
+  ✓ Submit deposit request
+  ✓ Submit withdrawal request
+  ✓ View deposit history
+  ✓ View withdrawal history
+  ✓ See betting statistics
+
+How to deposit:
+  1. Click "Deposit" button
+  2. Enter amount (optional)
+  3. Select payment method
+  4. Upload screenshot
+  5. Click "Submit Deposit Request"
+  ✅ Deposit submitted!
+
+How to withdraw:
+  1. Click "Withdraw" button
+  2. Enter amount
+  3. Enter account details
+  4. Select payment method
+  5. Click "Submit Withdrawal Request"
+  ✅ Withdrawal submitted!
+
+================================================================================
+
+TROUBLESHOOTING
+===============
+
+Problem: Page not loading / Button not working
+Solution:
+  1. Clear cache: Ctrl+Shift+Delete (or Cmd+Shift+Delete on Mac)
+  2. Hard refresh: Ctrl+Shift+R (or Cmd+Shift+R on Mac)
+  3. Go to the URL again
+  4. Check browser console (F12) for errors
+
+Problem: Can't see deposits
+Solution:
+  - Make sure filter is set to "PENDING"
+  - Check if you're logged in as ADMIN
+  - Check internet connection
+  - Try hard refresh
+
+Problem: Modal won't open
+Solution:
+  - Hard refresh the page
+  - Clear browser cache
+  - Try incognito/private window
+  - Check browser console for errors
+
+================================================================================
+
+PAYMENT METHODS
+===============
+
+CBE (Commercial Bank of Ethiopia)
+  - Account Number: 1000123456789
+  - Account Name: SkyRush Gaming
+
+Telebirr (Mobile Money)
+  - Phone Number: +251911123456
+  - Account Name: SkyRush Gaming
+
+================================================================================
+
+DEPOSIT STATUS MEANINGS
+=======================
+
+🟠 PENDING
+  - Awaiting admin review
+  - User funds not credited yet
+  - Admin can approve or reject
+
+🟢 APPROVED
+  - Admin approved the deposit
+  - Funds credited to user's wallet
+  - Deposit complete
+
+🔴 REJECTED
+  - Admin rejected the deposit
+  - User can see rejection reason
+  - No funds credited
+  - User can submit new deposit
+
+================================================================================
+
+KEY NUMBERS
+===========
+
+Minimum Deposit: 50 ETB
+Maximum Deposit: 50,000 ETB
+Maximum Screenshot Size: 50 MB
+Confirmation Countdown: 5 seconds
+Payment Processing Time: 5-30 minutes (business hours)
+
+================================================================================
+
+ROUTES
+======
+
+Admin Routes:
+  /admin → Admin Dashboard
+  /admin/deposits → Deposits Approval (FASTEST)
+
+User Routes:
+  /dashboard → Main Dashboard
+  /dashboard/deposits → Deposit History
+  /dashboard/withdrawals → Withdrawal History
+  /dashboard/profile → User Profile
+
+Auth Routes:
+  /login → Login
+  /register → Register
+  /verify-email → Email Verification
+  /forgot-password → Forgot Password
+  /reset-password → Reset Password
+
+================================================================================
+
+BROWSER SHORTCUTS
+=================
+
+Clear Cache:
+  Windows: Ctrl + Shift + Delete
+  Mac: Cmd + Shift + Delete
+
+Hard Refresh:
+  Windows: Ctrl + Shift + R
+  Mac: Cmd + Shift + R
+
+Open Console (Debugging):
+  Windows: F12
+  Mac: Cmd + Option + I
+
+================================================================================
+
+WHAT TO CHECK IF NOT WORKING
+============================
+
+1. Are you logged in? ✓
+2. Do you have the right role? (ADMIN for /admin, USER for /dashboard) ✓
+3. Clear browser cache? (Ctrl+Shift+Delete) ✓
+4. Hard refresh page? (Ctrl+Shift+R) ✓
+5. Check internet connection? ✓
+6. Check browser console for errors? (F12) ✓
+7. Try incognito/private window? ✓
+8. Try different browser? ✓
+
+If still not working after all of these:
+  → Report the error from browser console (F12)
+  → Take screenshot of the issue
+  → Describe what you're trying to do
+
+================================================================================
+
+SCREENSHOT REQUIREMENTS
+=======================
+
+Format: JPG or PNG
+Size: Max 50 MB
+Content: Payment confirmation screen showing:
+  - Amount sent
+  - Recipient account
+  - Transaction reference (if visible)
+  - Clear visibility of all details
+
+Good:
+  ✓ Screenshot is clear and readable
+  ✓ Shows amount and recipient
+  ✓ Not blurry or partially cut off
+
+Bad:
+  ✗ Screenshot too blurry
+  ✗ Amount not visible
+  ✗ Recipient cut off
+  ✗ Wrong screenshot (not payment confirmation)
+
+================================================================================
+
+QUICK LINKS
+===========
+
+Admin Deposits:        http://localhost:5173/admin/deposits
+User Dashboard:        http://localhost:5173/dashboard
+Login:                 http://localhost:5173/login
+Register:              http://localhost:5173/register
+
+Replace "localhost:5173" with your actual domain
+
+================================================================================
+
+SUCCESS INDICATORS
+==================
+
+Admin features working:
+  ✓ Can access /admin/deposits
+  ✓ Can see list of deposits
+  ✓ Can click deposit → details show
+  ✓ Can click Approve → form opens
+  ✓ Can enter amount and confirm
+  ✓ Deposit changes to APPROVED
+
+User features working:
+  ✓ Can access /dashboard
+  ✓ Can see wallet balance
+  ✓ Can click Deposit → modal opens
+  ✓ Can upload screenshot
+  ✓ Can submit deposit request
+  ✓ Deposit shows as PENDING
+
+================================================================================
+
+SUPPORT CONTACTS
+================
+
+For Code Issues:
+  - Check browser console (F12)
+  - Check network tab for API errors
+  - Report error messages and screenshots
+
+For Payment Issues:
+  - Check account number/phone number is correct
+  - Verify amount is within limits
+  - Confirm screenshot shows correct amount
+
+For User Support:
+  - Check deposit status in history
+  - Contact admin for manual approval
+  - Check email for notifications
+
+================================================================================
+
+THIS IS THE COMPLETE SYSTEM - EVERYTHING SHOULD BE WORKING NOW!
+
+Need help? Refer back to the comprehensive guides or check the browser console.
+
+Happy using! 🚀
+
+================================================================================

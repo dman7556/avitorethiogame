@@ -1,0 +1,11 @@
+{
+  "framework": "vite",
+  "installCommand": "npm ci --include=dev --workspace=packages/shared --workspace=apps/web --include-workspace-root",
+  "buildCommand": "npm run build",
+  "rewrites": [
+    {
+      "source": "/((?!api/|uploads/|socket\\.io/).*)",
+      "destination": "/index.html"
+    }
+  ]
+}

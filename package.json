@@ -1,0 +1,61 @@
+{
+  "name": "sky-rush",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": "22.x",
+    "npm": ">=10"
+  },
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev -w apps/server\" \"npm run dev -w apps/web\"",
+    "dev:server": "npm run dev -w apps/server",
+    "dev:web": "npm run dev -w apps/web",
+    "build": "npm run build -w packages/shared && npm run build -w apps/web",
+    "build:all": "npm run build -w packages/shared && npm run build -w apps/server && npm run build -w apps/web",
+    "build:shared": "npm run build -w packages/shared",
+    "build:server": "npm run build -w apps/server",
+    "build:web": "npm run build -w apps/web",
+    "test": "npm run test -w apps/server && npm run test -w packages/shared",
+    "test:watch": "npm run test:watch -w apps/server",
+    "lint": "eslint 'apps/**/*.{ts,tsx}' 'packages/**/*.{ts,tsx}'",
+    "format": "prettier --write 'apps/**/*.{ts,tsx,css}' 'packages/**/*.{ts,tsx}' 'prisma/**/*.{ts,prisma}'",
+    "db:migrate": "npx prisma migrate dev --schema=./prisma/schema.prisma",
+    "db:push": "npx prisma db push --schema=./prisma/schema.prisma",
+    "db:seed": "npx tsx prisma/seed.ts",
+    "db:studio": "npx prisma studio --schema=./prisma/schema.prisma"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "@vitejs/plugin-react": "^4.7.0",
+    "autoprefixer": "^10.5.4",
+    "concurrently": "^8.2.2",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react": "^7.34.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "postcss": "^8.5.26",
+    "prettier": "^3.2.5",
+    "tsx": "^4.7.1",
+    "typescript": "^5.4.5",
+    "vite": "^5.4.21",
+    "vitest": "^1.6.0"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.22.0",
+    "@supabase/ssr": "^0.12.6",
+    "@supabase/supabase-js": "^2.115.0",
+    "@types/multer": "^2.2.0",
+    "axios": "^1.20.0",
+    "bcrypt": "^5.1.1",
+    "date-fns": "^4.4.0",
+    "multer": "^2.3.0",
+    "pg": "^8.23.0",
+    "prisma": "^5.22.0"
+  }
+}

@@ -1,0 +1,120 @@
+Failed to start server: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.findFirst()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:18:48
+
+  15 
+  16 async initialize(): Promise<void> {
+  17   // Find the latest round or start fresh
+→ 18   const latestRound = await prisma.gameRound.findFirst(
+The column `main.GameRound.serverSeedHash` does not exist in the current database.
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.initialize (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:18:25)
+    at async GameEngine.initialize (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:30:5)
+    at async main (C:\Users\hp\Desktop\avatior one\apps\server\src\index.ts:135:5) {
+  code: 'P2022',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', column: 'main.GameRound.serverSeedHash' }
+}
+Failed to start server: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.findFirst()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:18:48
+
+  15 
+  16 async initialize(): Promise<void> {
+  17   // Find the latest round or start fresh
+→ 18   const latestRound = await prisma.gameRound.findFirst(
+The column `main.GameRound.serverSeedHash` does not exist in the current database.
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.initialize (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:18:25)
+    at async GameEngine.initialize (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:30:5)
+    at async main (C:\Users\hp\Desktop\avatior one\apps\server\src\index.ts:135:5) {
+  code: 'P2022',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', column: 'main.GameRound.serverSeedHash' }
+}
+^C^C^Cnode:events:502
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use 0.0.0.0:4000
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at doListen (node:net:2139:7)
+    at process.processTicksAndRejections (node:internal/process/task_queues:83:21)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1944:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -4091,
+  syscall: 'listen',
+  address: '0.0.0.0',
+  port: 4000
+}
+
+Node.js v20.19.4
+node:events:502
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use 0.0.0.0:4000
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at doListen (node:net:2139:7)
+    at process.processTicksAndRejections (node:internal/process/task_queues:83:21)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1944:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -4091,
+  syscall: 'listen',
+  address: '0.0.0.0',
+  port: 4000
+}
+
+Node.js v20.19.4
+node:events:502
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use 0.0.0.0:4000
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at doListen (node:net:2139:7)
+    at process.processTicksAndRejections (node:internal/process/task_queues:83:21)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1944:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -4091,
+  syscall: 'listen',
+  address: '0.0.0.0',
+  port: 4000
+}
+
+Node.js v20.19.4
+node:events:502
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use 0.0.0.0:4000
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at doListen (node:net:2139:7)
+    at process.processTicksAndRejections (node:internal/process/task_queues:83:21)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1944:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -4091,
+  syscall: 'listen',
+  address: '0.0.0.0',
+  port: 4000
+}
+
+Node.js v20.19.4

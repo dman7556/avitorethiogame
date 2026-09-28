@@ -1,0 +1,1820 @@
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.update()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:83:28
+
+  80 async startBetting(roundId: string, durationMs: number): Promise<void> {
+  81   const bettingEndsAt = new Date(Date.now() + durationMs);
+  82 
+→ 83   await prisma.gameRound.update(
+Operations timed out after `N/A`. Context: The database failed to respond to a query within the configured timeout — see https://pris.ly/d/sqlite-connector for more details. Database: C:\Users\hp\Desktop\avatior one\prisma\./prisma/dev.db
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.startBetting (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:83:5)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:75:7)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P1008',
+  clientVersion: '5.22.0',
+  meta: {
+    modelName: 'GameRound',
+    time: 'N/A',
+    context: 'The database failed to respond to a query within the configured timeout — see https://pris.ly/d/sqlite-connector for more details. Database: C:\\Users\\hp\\Desktop\\avatior one\\prisma\\./prisma/dev.db'
+  }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+equestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Operations timed out after `N/A`. Context: The database failed to respond to a query within the configured timeout — see https://pris.ly/d/sqlite-connector for more details. Database: C:\Users\hp\Desktop\avatior one\prisma\./prisma/dev.db
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P1008',
+  clientVersion: '5.22.0',
+  meta: {
+    modelName: 'GameRound',
+    time: 'N/A',
+    context: 'The database failed to respond to a query within the configured timeout — see https://pris.ly/d/sqlite-connector for more details. Database: C:\\Users\\hp\\Desktop\\avatior one\\prisma\\./prisma/dev.db'
+  }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.update()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:100:28
+
+   97 async startFlight(roundId: string): Promise<void> {
+   98   const now = new Date();
+   99 
+→ 100   await prisma.gameRound.update(
+Operations timed out after `N/A`. Context: The database failed to respond to a query within the configured timeout — see https://pris.ly/d/sqlite-connector for more details. Database: C:\Users\hp\Desktop\avatior one\prisma\./prisma/dev.db
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.startFlight (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:100:5)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:108:7)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P1008',
+  clientVersion: '5.22.0',
+  meta: {
+    modelName: 'GameRound',
+    time: 'N/A',
+    context: 'The database failed to respond to a query within the configured timeout — see https://pris.ly/d/sqlite-connector for more details. Database: C:\\Users\\hp\\Desktop\\avatior one\\prisma\\./prisma/dev.db'
+  }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Operations timed out after `N/A`. Context: The database failed to respond to a query within the configured timeout — see https://pris.ly/d/sqlite-connector for more details. Database: C:\Users\hp\Desktop\avatior one\prisma\./prisma/dev.db
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P1008',
+  clientVersion: '5.22.0',
+  meta: {
+    modelName: 'GameRound',
+    time: 'N/A',
+    context: 'The database failed to respond to a query within the configured timeout — see https://pris.ly/d/sqlite-connector for more details. Database: C:\\Users\\hp\\Desktop\\avatior one\\prisma\\./prisma/dev.db'
+  }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.update()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:117:28
+
+  114 async crashRound(roundId: string): Promise<void> {
+  115   const now = new Date();
+  116 
+→ 117   await prisma.gameRound.update(
+Operations timed out after `N/A`. Context: The database failed to respond to a query within the configured timeout — see https://pris.ly/d/sqlite-connector for more details. Database: C:\Users\hp\Desktop\avatior one\prisma\./prisma/dev.db
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.crashRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:117:5)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:134:7)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P1008',
+  clientVersion: '5.22.0',
+  meta: {
+    modelName: 'GameRound',
+    time: 'N/A',
+    context: 'The database failed to respond to a query within the configured timeout — see https://pris.ly/d/sqlite-connector for more details. Database: C:\\Users\\hp\\Desktop\\avatior one\\prisma\\./prisma/dev.db'
+  }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Unique constraint failed on the fields: (`roundNumber`)
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P2002',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound', target: [ 'roundNumber' ] }
+}

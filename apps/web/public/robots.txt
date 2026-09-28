@@ -1,0 +1,29 @@
+# Aviator (ethioaviator) — crawl rules
+# Public marketing/game content: INDEXABLE. Everything account-specific,
+# the admin panel, and API state: BLOCKED.
+
+User-agent: *
+Allow: /
+Allow: /provably-fair
+Allow: /responsible-gaming
+Allow: /about
+
+# Account-specific app state — never index
+Disallow: /dashboard
+Disallow: /verify-email
+Disallow: /forgot-password
+Disallow: /reset-password
+
+# Admin panel — never index
+Disallow: /admin
+
+# Auth screens carry no indexable content and create soft-401 duplicates
+Disallow: /login
+Disallow: /register
+
+# API / uploads / internal state
+Disallow: /api/
+Disallow: /uploads/
+Disallow: /socket.io/
+
+Sitemap: https://ethioaviator.com/sitemap.xml

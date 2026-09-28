@@ -1,0 +1,424 @@
+// SkyRush Crash Game - Prisma Schema (PostgreSQL / Supabase)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_DATABASE_URL")
+}
+
+// ---- Models ----
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  phone     String?  @unique // null until the user completes their profile with a real number (audit M5)
+  password  String
+  role      String   @default("USER") // USER | ADMIN
+  isActive  Boolean  @default(true)
+  
+  // Email verification
+  emailVerified         Boolean  @default(false)
+  verificationCode      String?  // Hashed 6-digit code
+  verificationCodeExpiry DateTime?
+  
+  // Password reset
+  resetCode             String?  // Hashed 6-digit code
+  resetCodeExpiry       DateTime?
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  lastLogin DateTime?
+
+  wallet                Wallet?
+  bets                  Bet[]
+  roundPlayers          RoundPlayer[]
+  chatMessages          ChatMessage[]
+  deposits              Deposit[]
+  withdrawals           Withdrawal[]
+  notifications         Notification[]
+  adminAuditLogs        AdminAuditLog[] @relation("AdminActions")
+  targetedAuditLogs     AdminAuditLog[] @relation("TargetUser")
+
+  @@index([email])
+  @@index([phone])
+  @@index([role])
+  @@index([isActive])
+  @@index([emailVerified])
+}
+
+model Wallet {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  balance   Decimal  @default(0) // Start at 0 - users must deposit funds
+  reserved  Decimal  @default(0) // Reserved for pending withdrawals
+  currency  String   @default("ETB")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user         User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions WalletTransaction[]
+
+  @@index([userId])
+}
+
+model WalletTransaction {
+  id            String   @id @default(cuid())
+  walletId      String
+  type          String   // DEPOSIT | WITHDRAWAL | BET | WIN | REFUND | ADMIN_CREDIT | ADMIN_DEBIT | INITIAL_BALANCE
+  amount        Decimal
+  balanceBefore Decimal
+  balanceAfter  Decimal
+  status        String   @default("COMPLETED") // PENDING | COMPLETED | FAILED
+  description   String
+  referenceId   String?  // Links to Deposit, Withdrawal, or Bet ID
+  metadata      String?  // JSON stored as string for additional data
+  processedBy   String?  // Admin ID for admin transactions
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  wallet Wallet @relation(fields: [walletId], references: [id], onDelete: Cascade)
+
+  @@index([walletId])
+  @@index([type])
+  @@index([status])
+  @@index([referenceId])
+  @@index([createdAt])
+  @@index([processedBy])
+}model GameRound {
+  id             String    @id @default(cuid())
+  roundNumber    Int       @unique
+  phase          String    @default("WAITING") // WAITING | BETTING | FLYING | CRASHED | SETTLED
+  crashPoint     Decimal?
+  maxMultiplier  Decimal   @default(1.0)
+  startedAt      DateTime?
+  bettingEndsAt  DateTime?
+  crashedAt      DateTime?
+  settledAt      DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime @updatedAt
+
+  // Provably-fair commit/reveal fields
+  serverSeedHash String? // SHA-256 commit published before betting opens
+  serverSeed     String? // revealed at settlement; anyone can recompute outcome
+
+  bets         Bet[]
+  roundPlayers RoundPlayer[]
+  gameEvents   GameEvent[]
+
+  @@index([phase])
+  @@index([roundNumber])
+  @@index([createdAt])
+}
+
+model RoundPlayer {
+  id       String  @id @default(cuid())
+  roundId  String
+  userId   String
+  totalBet Decimal @default(0)
+  totalWin Decimal @default(0)
+
+  round GameRound @relation(fields: [roundId], references: [id], onDelete: Cascade)
+  user  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([roundId, userId])
+}
+
+model Bet {
+  id                String   @id @default(cuid())
+  userId            String
+  roundId           String
+  slot              Int      // 1 or 2
+  amount            Decimal
+  status            String   @default("PENDING") // PENDING | PLACED | ACTIVE | CASHED_OUT | LOST | CANCELLED
+  cashoutMultiplier Decimal?
+  payout            Decimal?
+  autoCashout       Decimal?
+  placedAt          DateTime?
+  cashedOutAt       DateTime?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  user  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  round GameRound @relation(fields: [roundId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, roundId, slot])
+  @@index([roundId])
+  @@index([userId])
+  @@index([status])
+  // Fix 6 (perf audit): user-scoped listing is always "this user's bets, newest
+  // first" — a composite lets SQLite/Postgres seek straight into the user's
+  // range instead of sorting every row after the userId lookup.
+  @@index([userId, createdAt])
+}
+
+model GameEvent {
+  id        String   @id @default(cuid())
+  roundId   String?
+  type      String
+  data      String?  // JSON stored as string for SQLite
+  createdAt DateTime @default(now())
+
+  round GameRound? @relation(fields: [roundId], references: [id], onDelete: SetNull)
+
+  @@index([roundId])
+  @@index([type])
+  @@index([createdAt])
+}
+
+model ChatMessage {
+  id        String   @id @default(cuid())
+  userId    String
+  message   String
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([createdAt])
+}
+
+// ---- Financial Models ----
+
+model Deposit {
+  id              String   @id @default(cuid())
+  userId          String
+  submittedAmount Decimal  // What user claims to have sent
+  verifiedAmount  Decimal? // What admin actually credits (null until approved)
+  paymentMethod   String   // TELEBIRR | CBE
+  screenshotUrl   String?
+  screenshotPublicId String?  // Cloudinary public_id for deletion
+  status          String   @default("PENDING") // PENDING | APPROVED | REJECTED
+  rejectionReason String?
+  processedBy     String?  // Admin user ID
+  processedAt     DateTime?
+  // ── H1 dual-control envelope: out-of-envelope credit requests ──
+  overrideRequestedBy String?   // Admin who requested the out-of-envelope credit
+  overrideRequestedAt DateTime?
+  overrideAmount      Decimal?  // The requested credit amount
+  overrideReason      String?   // Mandatory reason from the requesting admin
+  overrideApprovedBy  String?   // The SECOND admin (never equal to requestedBy)
+  overrideApprovedAt  DateTime?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  // Fix 6 (perf audit): user-scoped, newest-first listing.
+  @@index([userId, createdAt])
+  @@index([status])
+  @@index([createdAt])
+  @@index([processedBy])
+}
+
+model Withdrawal {
+  id              String   @id @default(cuid())
+  userId          String
+  amount          Decimal
+  paymentMethod   String   // TELEBIRR | CBE
+  accountNumber   String   // Phone number or bank account
+  accountHolder   String?  // Name on account (for verification)
+  status          String   @default("PENDING") // PENDING | APPROVED | REJECTED | COMPLETED
+  rejectionReason String?
+  processedBy     String?  // Admin user ID
+  processedAt     DateTime?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  // Fix 6 (perf audit): user-scoped, newest-first listing.
+  @@index([userId, createdAt])
+  @@index([status])
+  @@index([createdAt])
+  @@index([processedBy])
+}
+
+model AdminAuditLog {
+  id              String   @id @default(cuid())
+  adminId         String
+  action          String   // DEPOSIT_APPROVED | DEPOSIT_REJECTED | WITHDRAWAL_APPROVED | etc.
+  targetUserId    String?
+  targetId        String?  // ID of affected resource (deposit, withdrawal, etc.)
+  metadata        String?  // JSON with additional details
+  ipAddress       String?
+  userAgent       String?
+  createdAt       DateTime @default(now())
+
+  admin      User  @relation("AdminActions", fields: [adminId], references: [id], onDelete: Cascade)
+  targetUser User? @relation("TargetUser", fields: [targetUserId], references: [id], onDelete: SetNull)
+
+  @@index([adminId])
+  @@index([targetUserId])
+  @@index([action])
+  @@index([createdAt])
+}
+
+model SystemSetting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String   // JSON value
+  updatedBy String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([key])
+}
+
+// ============================================================
+// Real-time analytics / risk / fairness models
+// ============================================================
+
+model ActivityEvent {
+  id             String   @id @default(cuid())
+  eventType      String // USER_REGISTERED, BET_PLACED, CASHOUT_ACCEPTED, ...
+  userId         String?
+  roundId        String?
+  betId          String?
+  transactionId  String?
+  requestId      String?
+  sessionId      String?
+  amount         Decimal?
+  currency       String   @default("ETB")
+  metadata       String? // JSON string — never secrets (passwords/tokens)
+  serverTs       DateTime @default(now())
+
+  @@index([userId, serverTs])
+  @@index([eventType, serverTs])
+  @@index([serverTs])
+  @@index([sessionId])
+  @@index([roundId])
+  @@index([betId])
+  @@index([transactionId])
+}
+
+model UserSession {
+  id             String   @id @default(cuid())
+  userId         String
+  socketId       String?
+  startedAt      DateTime @default(now())
+  lastActivityAt DateTime @default(now())
+  endedAt        DateTime?
+  endReason      String? // LOGOUT | DISCONNECT | TIMEOUT
+  roundsPlayed   Int      @default(0)
+  betsPlaced     Int      @default(0)
+  totalWagered   Decimal  @default(0)
+  totalPayout    Decimal  @default(0)
+  ipAddress      String?
+  userAgent      String?
+
+  @@index([userId, startedAt])
+  @@index([endedAt])
+}
+
+model RiskEvent {
+  id           String   @id @default(cuid())
+  userId       String?
+  category     String // VELOCITY, MULTI_ACCOUNT, BOT_LIKE, DEPOSIT_CYCLE, AUTH_ATTACK, RESPONSIBLE_GAMING, ...
+  riskScore    Int
+  riskLevel    String // LOW | MEDIUM | HIGH | CRITICAL
+  reasons      String // JSON array of explainable reasons
+  status       String   @default("OPEN") // OPEN | UNDER_REVIEW | CLEARED | CONFIRMED
+  reviewedBy   String?
+  reviewedAt   DateTime?
+  reviewNotes  String?
+  metadata     String? // JSON
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([userId, createdAt])
+  @@index([riskLevel, status])
+  @@index([category, status])
+  @@index([status])
+}
+
+model AdminAlert {
+  id          String   @id @default(cuid())
+  dedupeKey   String // deduplication: same key within window does not re-alert
+  category    String // FINANCIAL, FRAUD, RESPONSIBLE_GAMING, SYSTEM, SECURITY
+  severity    String // INFO | WARNING | HIGH | CRITICAL
+  title       String
+  message     String
+  linkType    String? // DEPOSIT, WITHDRAWAL, USER, ROUND — for drill-down
+  linkId      String?
+  metadata    String? // JSON
+  isResolved  Boolean  @default(false)
+  resolvedBy  String?
+  resolvedAt  DateTime?
+  createdAt   DateTime @default(now())
+
+  @@unique([dedupeKey])
+  @@index([category, isResolved])
+  @@index([severity, isResolved])
+  @@index([createdAt])
+}
+
+model PlatformMetricSnapshot {
+  id             String   @id @default(cuid())
+  capturedAt     DateTime @default(now())
+  onlineUsers    Int      @default(0)
+  activeSessions Int      @default(0)
+  currentRoundPlayers Int  @default(0)
+  totalWagered   Decimal  @default(0)
+  totalPayout    Decimal  @default(0)
+  betsPerSecond  Decimal  @default(0)
+  pendingDeposits Int     @default(0)
+  pendingWithdrawals Int  @default(0)
+  walletLiability Decimal @default(0)
+  reservedFunds  Decimal  @default(0)
+  metadata       String? // JSON: p50/p95/p99, db, event counts
+
+  @@index([capturedAt])
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  type      String   // DEPOSIT_APPROVED | DEPOSIT_REJECTED | WITHDRAWAL_APPROVED | etc.
+  title     String
+  message   String
+  isRead    Boolean  @default(false)
+  metadata  String?  // JSON with additional details
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([isRead])
+  @@index([createdAt])
+}
+
+// Provably-fair seed archive (audit M2): when the active server seed rotates,
+// the outgoing (now-revealed) seed is persisted here so every round committed
+// under it remains independently verifiable after rotation.
+model ServerSeedArchive {
+  id         String   @id @default(cuid())
+  seedHash   String   @unique // SHA-256 of seed — the public commit
+  seed       String   @unique
+  createdAt  DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+model PaymentMethod {
+  id           String   @id @default(cuid())
+  name         String   @unique
+  type         String   // TELEBIRR | CBE | BANK_TRANSFER
+  enabled      Boolean  @default(true)
+  account      String   // Phone or account number for platform
+  instructions String   // Instructions for users
+  minAmount    Decimal  @default(200)
+  maxAmount    Decimal  @default(10000)
+  updatedBy    String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([type])
+  @@index([enabled])
+}

@@ -1,0 +1,124 @@
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.update()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:100:28
+
+   97 async startFlight(roundId: string): Promise<void> {
+   98   const now = new Date();
+   99 
+→ 100   await prisma.gameRound.update(
+Can't reach database server at `aws-1-eu-west-1.pooler.supabase.com:6543`
+
+Please make sure your database server is running at `aws-1-eu-west-1.pooler.supabase.com:6543`.
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.startFlight (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:100:5)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:108:7)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P1001',
+  clientVersion: '5.22.0',
+  meta: {
+    modelName: 'GameRound',
+    database_host: 'aws-1-eu-west-1.pooler.supabase.com',
+    database_port: 6543
+  }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Can't reach database server at `aws-1-eu-west-1.pooler.supabase.com:6543`
+
+Please make sure your database server is running at `aws-1-eu-west-1.pooler.supabase.com:6543`.
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P1001',
+  clientVersion: '5.22.0',
+  meta: {
+    modelName: 'GameRound',
+    database_host: 'aws-1-eu-west-1.pooler.supabase.com',
+    database_port: 6543
+  }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Can't reach database server at `aws-1-eu-west-1.pooler.supabase.com:6543`
+
+Please make sure your database server is running at `aws-1-eu-west-1.pooler.supabase.com:6543`.
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P1001',
+  clientVersion: '5.22.0',
+  meta: {
+    modelName: 'GameRound',
+    database_host: 'aws-1-eu-west-1.pooler.supabase.com',
+    database_port: 6543
+  }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Can't reach database server at `aws-1-eu-west-1.pooler.supabase.com:6543`
+
+Please make sure your database server is running at `aws-1-eu-west-1.pooler.supabase.com:6543`.
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P1001',
+  clientVersion: '5.22.0',
+  meta: {
+    modelName: 'GameRound',
+    database_host: 'aws-1-eu-west-1.pooler.supabase.com',
+    database_port: 6543
+  }
+}
+[GameEngine] Error in game loop: PrismaClientKnownRequestError: 
+Invalid `prisma.gameRound.create()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:42
+
+  50 const roundNumber = this.nextRoundNumber++;
+  51 const now = new Date();
+  52 
+→ 53 const round = await prisma.gameRound.create(
+Server has closed the connection.
+    at $n.handleRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at async l (C:\Users\hp\Desktop\avatior one\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async RoundManager.createRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\RoundManager.ts:53:19)
+    at async GameEngine.runNextRound (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:56:21)
+    at async GameEngine.start (C:\Users\hp\Desktop\avatior one\apps\server\src\game\GameEngine.ts:31:7) {
+  code: 'P1017',
+  clientVersion: '5.22.0',
+  meta: { modelName: 'GameRound' }
+}

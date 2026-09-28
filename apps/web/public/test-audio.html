@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #1a1a2e;
+            color: #fff;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        button {
+            background: #0f3460;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            margin: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: #16213e;
+        }
+        .status {
+            padding: 15px;
+            margin: 10px 0;
+            background: #16213e;
+            border-radius: 5px;
+            font-family: monospace;
+        }
+        .success { color: #4caf50; }
+        .error { color: #f44336; }
+        .warning { color: #ff9800; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎵 Audio System Test</h1>
+        <div id="status" class="status">Click any button to test audio...</div>
+        
+        <h2>Basic Tests:</h2>
+        <button onclick="testBasicTone()">1. Test Basic Tone (440Hz)</button>
+        <button onclick="testButtonClick()">2. Test Button Click Sound</button>
+        <button onclick="testCashout()">3. Test Cashout Sound</button>
+        <button onclick="testCrash()">4. Test Crash Sound</button>
+        
+        <h2>Flight Engine Tests:</h2>
+        <button onclick="testFlightStart()">5. Start Flight Engine</button>
+        <button onclick="testFlightEvolution()">6. Evolve Flight (1x→10x)</button>
+        <button onclick="testFlightStop()">7. Stop Flight Engine</button>
+        
+        <h2>Full Sequence:</h2>
+        <button onclick="testFullSequence()">8. Test Complete Round</button>
+        
+        <h2>Audio Context Info:</h2>
+        <button onclick="checkAudioContext()">Check Audio Context Status</button>
+        <button onclick="checkSettings()">Check Audio Settings</button>
+    </div>
+
+    <script>
+        let log = document.getElementById('status');
+        let audioCtx = null;
+        let masterGain = null;
+        
+        function logMessage(msg, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const className = type === 'error' ? 'error' : type === 'success' ? 'success' : type === 'warning' ? 'warning' : '';
+            log.innerHTML += `<div class="${className}">[${timestamp}] ${msg}</div>`;
+            log.scrollTop = log.scrollHeight;
+            console.log(`[${timestamp}] ${msg}`);
+        }
+        
+        function initAudio() {
+            if (!audioCtx) {
+                try {
+                    audioCtx = new AudioContext();
+                    masterGain = audioCtx.createGain();
+                    masterGain.connect(audioCtx.destination);
+                    masterGain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                    logMessage('✅ AudioContext created successfully', 'success');
+                    logMessage(`   State: ${audioCtx.state}`, 'info');
+                    logMessage(`   Sample Rate: ${audioCtx.sampleRate}Hz`, 'info');
+                } catch (e) {
+                    logMessage('❌ Failed to create AudioContext: ' + e.message, 'error');
+                    return false;
+                }
+            }
+            
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume().then(() => {
+                    logMessage('✅ AudioContext resumed', 'success');
+                }).catch(e => {
+                    logMessage('❌ Failed to resume AudioContext: ' + e.message, 'error');
+                });
+            }
+            
+            return true;
+        }
+        
+        function testBasicTone() {
+            if (!initAudio()) return;
+            
+            logMessage('🔊 Playing 440Hz tone for 1 second...');
+            
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            
+            osc.frequency.setValueAtTime(440, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+            
+            osc.connect(gain);
+            gain.connect(masterGain);
+            
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 1);
+            
+            logMessage('✅ 440Hz tone should be playing now', 'success');
+        }
+        
+        function testButtonClick() {
+            if (!initAudio()) return;
+            
+            logMessage('🔊 Playing button click sound...');
+            
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.04);
+            
+            osc.connect(gain);
+            gain.connect(masterGain);
+            
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.04);
+            
+            logMessage('✅ Click sound played', 'success');
+        }
+        
+        function testCashout() {
+            if (!initAudio()) return;
+            
+            logMessage('🔊 Playing cashout sound...');
+            
+            // First tone
+            const osc1 = audioCtx.createOscillator();
+            const gain1 = audioCtx.createGain();
+            osc1.type = 'sine';
+            osc1.frequency.setValueAtTime(523, audioCtx.currentTime);
+            gain1.gain.setValueAtTime(0.15, audioCtx.currentTime);
+            osc1.connect(gain1);
+            gain1.connect(masterGain);
+            osc1.start(audioCtx.currentTime);
+            osc1.stop(audioCtx.currentTime + 0.08);
+            
+            // Second tone
+            setTimeout(() => {
+                const osc2 = audioCtx.createOscillator();
+                const gain2 = audioCtx.createGain();
+                osc2.type = 'sine';
+                osc2.frequency.setValueAtTime(659, audioCtx.currentTime);
+                gain2.gain.setValueAtTime(0.12, audioCtx.currentTime);
+                osc2.connect(gain2);
+                gain2.connect(masterGain);
+                osc2.start(audioCtx.currentTime);
+                osc2.stop(audioCtx.currentTime + 0.1);
+            }, 60);
+            
+            logMessage('✅ Cashout sound played', 'success');
+        }
+        
+        function testCrash() {
+            if (!initAudio()) return;
+            
+            logMessage('🔊 Playing crash sound...');
+            
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(120, audioCtx.currentTime + 0.08);
+            gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
+            
+            osc.connect(gain);
+            gain.connect(masterGain);
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.08);
+            
+            logMessage('✅ Crash sound played', 'success');
+        }
+        
+        let flightOsc = null;
+        let flightGain = null;
+        
+        function testFlightStart() {
+            if (!initAudio()) return;
+            if (flightOsc) {
+                logMessage('⚠️ Flight engine already running', 'warning');
+                return;
+            }
+            
+            logMessage('🔊 Starting flight engine...');
+            
+            flightOsc = audioCtx.createOscillator();
+            flightGain = audioCtx.createGain();
+            
+            flightOsc.type = 'sawtooth';
+            flightOsc.frequency.setValueAtTime(48, audioCtx.currentTime);
+            flightGain.gain.setValueAtTime(0.0001, audioCtx.currentTime);
+            flightGain.gain.exponentialRampToValueAtTime(0.05, audioCtx.currentTime + 0.8);
+            
+            flightOsc.connect(flightGain);
+            flightGain.connect(masterGain);
+            flightOsc.start(audioCtx.currentTime);
+            
+            logMessage('✅ Flight engine started (48Hz)', 'success');
+        }
+        
+        function testFlightEvolution() {
+            if (!flightOsc) {
+                logMessage('⚠️ Start flight engine first!', 'warning');
+                return;
+            }
+            
+            logMessage('🔊 Evolving flight engine 1x → 10x...');
+            
+            let mult = 1.0;
+            const interval = setInterval(() => {
+                mult += 0.5;
+                const freq = 48 + (mult / 20) * (72 - 48);
+                flightOsc.frequency.setTargetAtTime(freq, audioCtx.currentTime, 0.3);
+                logMessage(`   ${mult.toFixed(1)}x → ${freq.toFixed(1)}Hz`);
+                
+                if (mult >= 10) {
+                    clearInterval(interval);
+                    logMessage('✅ Flight evolution complete', 'success');
+                }
+            }, 500);
+        }
+        
+        function testFlightStop() {
+            if (!flightOsc) {
+                logMessage('⚠️ No flight engine running', 'warning');
+                return;
+            }
+            
+            logMessage('🔊 Stopping flight engine...');
+            
+            flightGain.gain.setTargetAtTime(0.0001, audioCtx.currentTime, 0.01);
+            
+            setTimeout(() => {
+                flightOsc.stop();
+                flightOsc.disconnect();
+                flightOsc = null;
+                flightGain = null;
+                logMessage('✅ Flight engine stopped', 'success');
+            }, 100);
+        }
+        
+        function testFullSequence() {
+            if (!initAudio()) return;
+            
+            logMessage('🎮 Starting full round sequence...');
+            
+            // Countdown
+            setTimeout(() => {
+                logMessage('3...');
+                testButtonClick();
+            }, 1000);
+            
+            setTimeout(() => {
+                logMessage('2...');
+                testButtonClick();
+            }, 2000);
+            
+            setTimeout(() => {
+                logMessage('1...');
+                testButtonClick();
+            }, 3000);
+            
+            // Round start + flight
+            setTimeout(() => {
+                logMessage('🚀 Round starting!');
+                testFlightStart();
+            }, 4000);
+            
+            // Evolution
+            setTimeout(() => {
+                logMessage('📈 Multiplier increasing...');
+                testFlightEvolution();
+            }, 5000);
+            
+            // Crash
+            setTimeout(() => {
+                logMessage('💥 CRASH!');
+                testFlightStop();
+                setTimeout(() => testCrash(), 100);
+            }, 15000);
+        }
+        
+        function checkAudioContext() {
+            if (!audioCtx) {
+                logMessage('⚠️ AudioContext not initialized', 'warning');
+                logMessage('   Click "Test Basic Tone" to initialize', 'info');
+                return;
+            }
+            
+            logMessage('📊 AudioContext Status:', 'info');
+            logMessage(`   State: ${audioCtx.state}`, audioCtx.state === 'running' ? 'success' : 'error');
+            logMessage(`   Sample Rate: ${audioCtx.sampleRate}Hz`);
+            logMessage(`   Current Time: ${audioCtx.currentTime.toFixed(2)}s`);
+            logMessage(`   Base Latency: ${(audioCtx.baseLatency * 1000).toFixed(2)}ms`);
+        }
+        
+        function checkSettings() {
+            logMessage('⚙️ Checking LocalStorage settings...', 'info');
+            
+            try {
+                const settings = localStorage.getItem('audio-settings');
+                if (settings) {
+                    const parsed = JSON.parse(settings);
+                    logMessage('   Found saved settings:', 'success');
+                    logMessage(`   - Master: ${(parsed.master * 100).toFixed(0)}%`);
+                    logMessage(`   - SFX: ${(parsed.sfx * 100).toFixed(0)}%`);
+                    logMessage(`   - Music: ${(parsed.music * 100).toFixed(0)}%`);
+                    logMessage(`   - Flight: ${(parsed.flight * 100).toFixed(0)}%`);
+                    logMessage(`   - Muted: ${parsed.muted ? 'YES' : 'NO'}`, parsed.muted ? 'error' : 'success');
+                    logMessage(`   - SFX Enabled: ${parsed.sfxEnabled ? 'YES' : 'NO'}`);
+                    logMessage(`   - Music Enabled: ${parsed.musicEnabled ? 'YES' : 'NO'}`);
+                    
+                    if (parsed.muted) {
+                        logMessage('⚠️ AUDIO IS MUTED! Unmute in game settings.', 'error');
+                    }
+                    if (parsed.master === 0 || parsed.sfx === 0) {
+                        logMessage('⚠️ Volume is set to 0! Increase in game settings.', 'error');
+                    }
+                } else {
+                    logMessage('   No saved settings found (using defaults)', 'info');
+                }
+            } catch (e) {
+                logMessage('❌ Failed to read settings: ' + e.message, 'error');
+            }
+        }
+        
+        // Auto-check on load
+        setTimeout(() => {
+            logMessage('🎵 Audio Test Page Loaded', 'success');
+            logMessage('Click any button to test audio functionality');
+            checkSettings();
+        }, 100);
+    </script>
+</body>
+</html>

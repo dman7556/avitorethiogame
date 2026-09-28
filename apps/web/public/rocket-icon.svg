@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Rocket icon">
+  <!-- Solid black rounded-square background -->
+  <rect width="512" height="512" rx="115" fill="#000000"/>
+
+  <!-- Rocket silhouette, launched at a steep 45° upward angle -->
+  <g transform="rotate(45 256 256)" fill="#D7263D">
+    <!-- Pointed nose cone -->
+    <path d="M256 76 L298 176 L214 176 Z"/>
+    <!-- Cylindrical body -->
+    <rect x="220" y="170" width="72" height="184" rx="14"/>
+    <!-- Single circular porthole window (cutout in background color) -->
+    <circle cx="256" cy="232" r="19" fill="#000000"/>
+    <!-- Left fin (angular, near tail) -->
+    <path d="M220 296 L166 376 L220 352 Z"/>
+    <!-- Right fin (angular, near tail) -->
+    <path d="M292 296 L346 376 L292 352 Z"/>
+    <!-- Back fin pointing straight back -->
+    <path d="M236 342 L276 342 L256 392 Z"/>
+    <!-- Flame / exhaust trail: overlapping triangles fading in opacity toward the tip -->
+    <path d="M228 350 L284 350 L256 432 Z" opacity="0.85"/>
+    <path d="M240 356 L272 356 L256 452 Z" opacity="0.5"/>
+    <path d="M249 360 L263 360 L256 468 Z" opacity="0.28"/>
+  </g>
+</svg>

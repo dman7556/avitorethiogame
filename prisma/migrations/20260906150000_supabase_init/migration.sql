@@ -1,0 +1,2 @@
+-- Supabase schema applied directly via psql
+-- Tables: User, Wallet, WalletTransaction, GameRound, RoundPlayer, Bet, GameEvent, ChatMessage, Deposit, Withdrawal, AdminAuditLog, SystemSetting, Notification, PaymentMethod

@@ -1,0 +1,7 @@
+npm error Lifecycle script `dev` failed with error:
+npm error code 1
+npm error path C:\Users\hp\Desktop\avatior one\apps\server
+npm error workspace @sky-rush/server@1.0.0
+npm error location C:\Users\hp\Desktop\avatior one\apps\server
+npm error command failed
+npm error command C:\WINDOWS\system32\cmd.exe /d /s /c tsx watch src/index.ts

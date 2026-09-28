@@ -1,0 +1,24 @@
+{
+  "buildCommand": "npm run build:web",
+  "outputDirectory": "apps/web/dist",
+  "framework": null,
+  "installCommand": "npm install",
+  "devCommand": "npm run dev:web",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ]
+}

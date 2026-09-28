@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Aviator Audio Demo</title>
+<style>
+  body {
+    background: #0d1117;
+    color: #e6edf3;
+    font-family: system-ui, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+  }
+  h1 { font-size: 1.4rem; margin-bottom: 4px; }
+  p.sub { color: #8b949e; margin-top: 0; margin-bottom: 30px; text-align: center; }
+  .row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  button {
+    background: #21262d;
+    border: 1px solid #30363d;
+    color: #e6edf3;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+  }
+  button:hover { background: #30363d; }
+  button:active { transform: scale(0.96); }
+  .fly { background: #1f6feb; border-color: #1f6feb; }
+  .fly:hover { background: #388bfd; }
+  .cash { background: #238636; border-color: #238636; }
+  .cash:hover { background: #2ea043; }
+  .crash { background: #da3633; border-color: #da3633; }
+  .crash:hover { background: #f85149; }
+  #multiplier {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 20px 0;
+    color: #58a6ff;
+  }
+  .hint { color: #6e7681; font-size: 0.85rem; margin-top: 30px; text-align: center; max-width: 420px; }
+</style>
+</head>
+<body>
+
+<h1>✈️ Aviator Audio Demo</h1>
+<p class="sub">All sounds are synthesized live — no audio files. Click anywhere first to unlock audio.</p>
+
+<div id="multiplier">1.00x</div>
+
+<div class="row">
+  <button class="fly" id="startBtn">▶ Start Flight (engine loop)</button>
+  <button id="stopBtn">⏹ Stop Engine</button>
+</div>
+
+<div class="row">
+  <button class="cash" id="cashBtn">💰 Cash Out</button>
+  <button class="crash" id="crashBtn">💥 Crash</button>
+  <button id="clickBtn">🖱 Bet Click</button>
+</div>
+
+<div class="row">
+  <button id="setBetBtn">✅ Set Bet</button>
+  <button id="cancelBetBtn">✖ Cancel Bet</button>
+</div>
+
+<p class="hint">
+  Press "Start Flight" to hear the rising engine drone — the multiplier auto-climbs
+  while it's running, and pitch/volume/brightness increase with it, just like the
+  real tension curve. Try Cash Out or Crash at different points to hear how the chime
+  vs. explosion feel against the engine sound.
+</p>
+
+<script>
+class AviatorAudioEngine {
+  constructor() {
+    this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+    this.masterGain = this.ctx.createGain();
+    this.masterGain.gain.value = 1.7;
+    // A limiter to prevent harsh digital clipping/distortion at this high gain
+    this.limiter = this.ctx.createDynamicsCompressor();
+    this.limiter.threshold.value = -6;
+    this.limiter.knee.value = 0;
+    this.limiter.ratio.value = 20;
+    this.limiter.attack.value = 0.001;
+    this.limiter.release.value = 0.15;
+    this.masterGain.connect(this.limiter);
+    this.limiter.connect(this.ctx.destination);
+    this.engineNodes = null;
+  }
+
+  async unlock() {
+    if (this.ctx.state === "suspended") await this.ctx.resume();
+  }
+
+  startFlight() {
+    if (this.engineNodes) return;
+    const ctx = this.ctx;
+    const now = ctx.currentTime;
+
+    // --- Layer 1: soft sine pad (the calm base tone) ---
+    const osc1 = ctx.createOscillator();
+    const osc2 = ctx.createOscillator();
+    osc1.type = "sine";
+    osc2.type = "sine";
+    osc1.frequency.value = 110;
+    osc2.frequency.value = 110;
+    osc2.detune.value = 6;
+
+    const lfo = ctx.createOscillator();
+    const lfoGain = ctx.createGain();
+    lfo.frequency.value = 0.3;
+    lfoGain.gain.value = 1.5;
+    lfo.connect(lfoGain);
+    lfoGain.connect(osc1.frequency);
+    lfoGain.connect(osc2.frequency);
+
+    const filter = ctx.createBiquadFilter();
+    filter.type = "lowpass";
+    filter.frequency.value = 220;
+    filter.Q.value = 0.5;
+
+    const gain = ctx.createGain();
+    gain.gain.setValueAtTime(0, now);
+    gain.gain.linearRampToValueAtTime(0.05, now + 2.5);
+
+    // --- Layer 2: airy filtered noise ("high altitude wind") ---
+    const noiseBuffer = ctx.createBuffer(1, ctx.sampleRate * 2, ctx.sampleRate);
+    const noiseData = noiseBuffer.getChannelData(0);
+    for (let i = 0; i < noiseData.length; i++) noiseData[i] = Math.random() * 2 - 1;
+    const windSource = ctx.createBufferSource();
+    windSource.buffer = noiseBuffer;
+    windSource.loop = true;
+
+    const windFilter = ctx.createBiquadFilter();
+    windFilter.type = "bandpass";
+    windFilter.frequency.value = 900;
+    windFilter.Q.value = 0.7;
+
+    const windGain = ctx.createGain();
+    windGain.gain.setValueAtTime(0, now);
+    windGain.gain.linearRampToValueAtTime(0.02, now + 3); // very subtle
+
+    // slow LFO breathing the wind's brightness in and out
+    const windLfo = ctx.createOscillator();
+    const windLfoGain = ctx.createGain();
+    windLfo.frequency.value = 0.07;
+    windLfoGain.gain.value = 250;
+    windLfo.connect(windLfoGain);
+    windLfoGain.connect(windFilter.frequency);
+
+    // --- Gentle stereo drift across all layers for spaciousness ---
+    const panner = ctx.createStereoPanner();
+    const panLfo = ctx.createOscillator();
+    const panLfoGain = ctx.createGain();
+    panLfo.frequency.value = 0.04;
+    panLfoGain.gain.value = 0.6;
+    panLfo.connect(panLfoGain);
+    panLfoGain.connect(panner.pan);
+
+    // Routing
+    osc1.connect(filter);
+    osc2.connect(filter);
+    filter.connect(gain);
+    gain.connect(panner);
+
+    windSource.connect(windFilter);
+    windFilter.connect(windGain);
+    windGain.connect(panner);
+
+    panner.connect(this.masterGain);
+
+    osc1.start();
+    osc2.start();
+    lfo.start();
+    windSource.start();
+    windLfo.start();
+    panLfo.start();
+
+    this.engineNodes = {
+      osc1, osc2, lfo, filter, gain,
+      windSource, windFilter, windGain, windLfo,
+      panner, panLfo,
+    };
+  }
+
+  updateMultiplier(multiplier) {
+    if (!this.engineNodes) return;
+    const now = this.ctx.currentTime;
+    const { osc1, osc2, filter, gain } = this.engineNodes;
+    const clamped = Math.min(multiplier, 20);
+
+    // Kept essentially flat/steady — only a barely perceptible drift so the
+    // sound reads as "constant" rather than an audibly rising build.
+    const t = Math.sqrt(clamped - 1);
+    const freq = 110 + t * 4;
+    const cutoff = 220 + t * 60;
+    const vol = 0.05 + Math.min(t * 0.004, 0.03);
+
+    osc1.frequency.linearRampToValueAtTime(freq, now + 0.5);
+    osc2.frequency.linearRampToValueAtTime(freq + 2, now + 0.5);
+    filter.frequency.linearRampToValueAtTime(cutoff, now + 0.5);
+    gain.gain.linearRampToValueAtTime(vol, now + 0.5);
+  }
+
+  stopFlight() {
+    if (!this.engineNodes) return;
+    const ctx = this.ctx;
+    const now = ctx.currentTime;
+    const {
+      osc1, osc2, lfo, gain,
+      windSource, windGain, windLfo,
+      panLfo,
+    } = this.engineNodes;
+
+    gain.gain.cancelScheduledValues(now);
+    gain.gain.setValueAtTime(gain.gain.value, now);
+    gain.gain.linearRampToValueAtTime(0, now + 0.3);
+
+    windGain.gain.cancelScheduledValues(now);
+    windGain.gain.setValueAtTime(windGain.gain.value, now);
+    windGain.gain.linearRampToValueAtTime(0, now + 0.3);
+
+    const stopTime = now + 0.35;
+    osc1.stop(stopTime);
+    osc2.stop(stopTime);
+    lfo.stop(stopTime);
+    windSource.stop(stopTime);
+    windLfo.stop(stopTime);
+    panLfo.stop(stopTime);
+
+    this.engineNodes = null;
+  }
+
+  cashOut() {
+    const ctx = this.ctx;
+    const now = ctx.currentTime;
+    const notes = [880, 1108.73, 1318.51]; // A5, C#6, E6 — bright major arpeggio
+
+    notes.forEach((freq, i) => {
+      const start = now + i * 0.09;
+
+      // Main tone
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.value = freq;
+
+      gain.gain.setValueAtTime(0, start);
+      gain.gain.linearRampToValueAtTime(0.45, start + 0.015);
+      gain.gain.exponentialRampToValueAtTime(0.001, start + 0.45);
+
+      osc.connect(gain);
+      gain.connect(this.masterGain);
+      osc.start(start);
+      osc.stop(start + 0.5);
+
+      // Soft octave-up harmonic layer for a little extra "shine"
+      const osc2 = ctx.createOscillator();
+      const gain2 = ctx.createGain();
+      osc2.type = "triangle";
+      osc2.frequency.value = freq * 2;
+
+      gain2.gain.setValueAtTime(0, start);
+      gain2.gain.linearRampToValueAtTime(0.12, start + 0.015);
+      gain2.gain.exponentialRampToValueAtTime(0.001, start + 0.3);
+
+      osc2.connect(gain2);
+      gain2.connect(this.masterGain);
+      osc2.start(start);
+      osc2.stop(start + 0.35);
+    });
+  }
+
+  crash() {
+    const ctx = this.ctx;
+    const now = ctx.currentTime;
+
+    // Softer noise burst — darker filtering and a brief fade-in instead of an
+    // instant full-volume hit, so it lands as a "thud" rather than a "bang"
+    const bufferSize = ctx.sampleRate * 0.7;
+    const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+    const data = buffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) {
+      const t = i / bufferSize;
+      const envelope = Math.min(t / 0.03, 1) * Math.pow(1 - t, 2.2); // brief fade-in, smooth decay
+      data[i] = (Math.random() * 2 - 1) * envelope;
+    }
+    const noise = ctx.createBufferSource();
+    noise.buffer = buffer;
+
+    const noiseFilter = ctx.createBiquadFilter();
+    noiseFilter.type = "lowpass";
+    noiseFilter.frequency.setValueAtTime(1400, now); // much darker, less "crack"
+    noiseFilter.frequency.exponentialRampToValueAtTime(100, now + 0.7);
+    noiseFilter.Q.value = 0.3;
+
+    const noiseGain = ctx.createGain();
+    noiseGain.gain.setValueAtTime(0.35, now); // softer peak
+    noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.7);
+
+    noise.connect(noiseFilter);
+    noiseFilter.connect(noiseGain);
+    noiseGain.connect(this.masterGain);
+
+    // Softer, rounder low thump — gentle attack instead of an instant spike
+    const thump = ctx.createOscillator();
+    thump.type = "sine";
+    thump.frequency.setValueAtTime(100, now);
+    thump.frequency.exponentialRampToValueAtTime(38, now + 0.5);
+
+    const thumpGain = ctx.createGain();
+    thumpGain.gain.setValueAtTime(0, now);
+    thumpGain.gain.linearRampToValueAtTime(0.5, now + 0.02);
+    thumpGain.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
+
+    thump.connect(thumpGain);
+    thumpGain.connect(this.masterGain);
+
+    noise.start(now);
+    thump.start(now);
+    noise.stop(now + 0.7);
+    thump.stop(now + 0.6);
+  }
+
+  betClick() {
+    const ctx = this.ctx;
+    const now = ctx.currentTime;
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    osc.type = "square";
+    osc.frequency.setValueAtTime(600, now);
+    osc.frequency.exponentialRampToValueAtTime(200, now + 0.05);
+
+    gain.gain.setValueAtTime(0.3, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
+
+    osc.connect(gain);
+    gain.connect(this.masterGain);
+
+    osc.start(now);
+    osc.stop(now + 0.07);
+  }
+
+  // Confirmation when a bet is placed/set — short, soft, upward two-note blip
+  setBet() {
+    const ctx = this.ctx;
+    const now = ctx.currentTime;
+    const notes = [523.25, 659.25]; // C5, E5 — quick rising confirmation
+
+    notes.forEach((freq, i) => {
+      const start = now + i * 0.06;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(freq, start);
+
+      gain.gain.setValueAtTime(0, start);
+      gain.gain.linearRampToValueAtTime(0.3, start + 0.01);
+      gain.gain.exponentialRampToValueAtTime(0.001, start + 0.18);
+
+      osc.connect(gain);
+      gain.connect(this.masterGain);
+      osc.start(start);
+      osc.stop(start + 0.2);
+    });
+  }
+
+  // Bet cancelled — soft, brief descending tone, clearly different from setBet
+  cancelBet() {
+    const ctx = this.ctx;
+    const now = ctx.currentTime;
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    osc.type = "triangle";
+    osc.frequency.setValueAtTime(420, now);
+    osc.frequency.exponentialRampToValueAtTime(260, now + 0.15);
+
+    gain.gain.setValueAtTime(0, now);
+    gain.gain.linearRampToValueAtTime(0.22, now + 0.01);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+
+    osc.connect(gain);
+    gain.connect(this.masterGain);
+    osc.start(now);
+    osc.stop(now + 0.22);
+  }
+}
+
+const audio = new AviatorAudioEngine();
+let flying = false;
+let mult = 1.0;
+let rafId = null;
+const multEl = document.getElementById("multiplier");
+
+function loop() {
+  if (!flying) return;
+  mult += 0.008 + mult * 0.003; // slower, calmer accelerating climb
+  multEl.textContent = mult.toFixed(2) + "x";
+  audio.updateMultiplier(mult);
+  rafId = requestAnimationFrame(loop);
+}
+
+document.getElementById("startBtn").addEventListener("click", async () => {
+  await audio.unlock();
+  if (flying) return;
+  flying = true;
+  mult = 1.0;
+  multEl.textContent = "1.00x";
+  audio.startFlight();
+  loop();
+});
+
+document.getElementById("stopBtn").addEventListener("click", async () => {
+  await audio.unlock();
+  flying = false;
+  cancelAnimationFrame(rafId);
+  audio.stopFlight();
+});
+
+document.getElementById("cashBtn").addEventListener("click", async () => {
+  await audio.unlock();
+  audio.cashOut();
+});
+
+document.getElementById("crashBtn").addEventListener("click", async () => {
+  await audio.unlock();
+  audio.crash();
+  flying = false;
+  cancelAnimationFrame(rafId);
+  audio.stopFlight();
+});
+
+document.getElementById("clickBtn").addEventListener("click", async () => {
+  await audio.unlock();
+  audio.betClick();
+});
+
+document.getElementById("setBetBtn").addEventListener("click", async () => {
+  await audio.unlock();
+  audio.setBet();
+});
+
+document.getElementById("cancelBetBtn").addEventListener("click", async () => {
+  await audio.unlock();
+  audio.cancelBet();
+});
+</script>
+
+</body>
+</html>

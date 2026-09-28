@@ -1,0 +1,22 @@
+[METRICS] slowTick: 
+Invalid `prisma.riskEvent.count()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\analytics\metrics-engine.ts:104:24
+
+  101 prisma.withdrawal.count({ where: { status: 'PENDING' } }),
+  102 prisma.wallet.aggregate({ _sum: { balance: true, reserved: true }, _count: true }),
+  103 sessionTracker.getActiveSocketCount(),
+→ 104 prisma.riskEvent.count(
+Can't reach database server at `aws-0-eu-west-2.pooler.supabase.com:6543`
+
+Please make sure your database server is running at `aws-0-eu-west-2.pooler.supabase.com:6543`.
+[METRICS] slowTick: 
+Invalid `prisma.user.count()` invocation in
+C:\Users\hp\Desktop\avatior one\apps\server\src\analytics\metrics-engine.ts:122:19
+
+  119 prisma.deposit.aggregate({ where: { status: 'APPROVED', processedAt: { gte: day } }, _sum: { verifiedAmount: true }, _count: true }),
+  120 prisma.withdrawal.aggregate({ where: { status: 'APPROVED', processedAt: { gte: day } }, _sum: { amount: true }, _count: true }),
+  121 prisma.bet.count({ where: { createdAt: { gte: day } } }),
+→ 122 prisma.user.count(
+Can't reach database server at `aws-0-eu-west-2.pooler.supabase.com:6543`
+
+Please make sure your database server is running at `aws-0-eu-west-2.pooler.supabase.com:6543`.

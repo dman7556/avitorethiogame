@@ -1,0 +1,18 @@
+{
+  "name": "Aviator — Crash Game",
+  "short_name": "Aviator",
+  "description": "Aviator crash game — bet, watch the curve, cash out before it crashes.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0a0a0f",
+  "theme_color": "#0a0a0f",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

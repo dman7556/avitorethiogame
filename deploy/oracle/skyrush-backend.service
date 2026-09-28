@@ -1,0 +1,44 @@
+# Skyrush backend — systemd unit (SINGLE INSTANCE by design)
+#
+# The game engine keeps round/bet state in memory: exactly ONE process must run.
+# Never enable cluster mode, never run two units, never scale this service
+# horizontally. Multiple processes would create conflicting game rounds.
+#
+# Install (on the VM, as root):
+#   cp deploy/oracle/skyrush-backend.service /etc/systemd/system/
+#   systemctl daemon-reload && systemctl enable --now skyrush-backend
+
+[Unit]
+Description=SkyRush Aviator backend (single-instance game server)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+# Dedicated unprivileged user; owns the app dir. Create once:
+#   useradd --system --home /opt/skyrush --shell /usr/sbin/nologin skyrush
+User=skyrush
+Group=skyrush
+WorkingDirectory=/opt/skyrush
+# Compiled output (tsc mirrors the monorepo layout — verified locally):
+#   apps/server/dist/apps/server/src/index.js
+# Env is loaded from /etc/skyrush/backend.env (root-owned, 600, NOT in git).
+EnvironmentFile=/etc/skyrush/backend.env
+Environment=NODE_ENV=production
+Environment=PORT=8080
+ExecStart=/usr/bin/node apps/server/dist/apps/server/src/index.js
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=skyrush-backend
+
+# Hardening
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+ReadWritePaths=/opt/skyrush
+
+[Install]
+WantedBy=multi-user.target
