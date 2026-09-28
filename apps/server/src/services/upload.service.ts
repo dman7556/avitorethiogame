@@ -74,6 +74,14 @@ export class UploadService {
       );
     }
 
+    // Ensure buffer exists (memory storage required)
+    if (!file.buffer) {
+      throw new UploadError(
+        'File buffer is missing. Memory storage is required.',
+        'MISSING_FILE_BUFFER'
+      );
+    }
+
     // Validate ACTUAL content — a renamed .exe must not pass as an image.
     const detected = detectImageMime(file.buffer);
     if (!detected) {
