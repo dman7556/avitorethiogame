@@ -81,7 +81,7 @@ export default function DepositModal({ isOpen, onClose, balance }: DepositModalP
   };
 
   const accountInfo = selectedMethod.id === 'cbe' 
-    ? { account: '1000123456789', name: 'Aviator Gaming' }
+    ? { account: '1000498522622', name: 'Biniyam Birhanu' }
     : { phone: '+251911123456', name: 'Aviator Gaming' };
 
   return (
@@ -151,8 +151,11 @@ export default function DepositModal({ isOpen, onClose, balance }: DepositModalP
                   key={method.id}
                   type="button"
                   onClick={() => setSelectedMethod(method)}
-                  className={`p-3 rounded-xl border transition-all text-left ${
-                    selectedMethod.id === method.id
+                  disabled={method.id === 'telebirr'}
+                  className={`p-3 rounded-xl border transition-all text-left relative ${
+                    method.id === 'telebirr'
+                      ? 'border-sky-border bg-sky-dark/50 opacity-60 cursor-not-allowed'
+                      : selectedMethod.id === method.id
                       ? 'border-sky-green bg-sky-green/10'
                       : 'border-sky-border bg-sky-dark hover:border-sky-border-light'
                   }`}
@@ -161,9 +164,9 @@ export default function DepositModal({ isOpen, onClose, balance }: DepositModalP
                     {method.name}
                   </div>
                   <div className="text-[11px] text-sky-text-muted mt-0.5">
-                    {method.type === 'bank' ? 'Bank Transfer' : 'Mobile Money'}
+                    {method.id === 'telebirr' ? 'Soon Available' : method.type === 'bank' ? 'Bank Transfer' : 'Mobile Money'}
                   </div>
-                  {selectedMethod.id === method.id && (
+                  {selectedMethod.id === method.id && method.id !== 'telebirr' && (
                     <CheckCircle size={14} className="text-sky-green mt-1" />
                   )}
                 </button>
