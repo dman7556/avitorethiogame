@@ -205,6 +205,52 @@ body {
   flex: 0 0 45%; /* Mobile: 45% for betting panel */
   max-height: 45vh;
 }
+/* ── Dual-bet mode (second card open) ────────────────────────────
+   Both cards must stay fully visible on phones instead of stacking
+   below the fold and scrolling. BettingPanel measures the panel's
+   visible height and scales the cards down to fit; this block makes
+   the panel honour that fit: the scaled content is clipped rather
+   than scrolled (its layout box stays at natural size, because a
+   transform does not change layout), so no scrollbar appears and no
+   card is cut off. The scaler anchors top-left, so the cards sit at
+   the top of the panel — the region that is actually on screen. */
+.game-fit .game-panel-sec .betting-panel.is-dual {
+  height: 100%;
+  overflow: hidden;
+}
+.game-fit .game-panel-sec .betting-panel.is-dual .betting-scaler {
+  transform-origin: top left;
+  transition: transform 160ms ease-out;
+}
+/* Phones: give the panel the vertical room it needs while the second
+   card is open, so the two cards stay near full size instead of being
+   scaled down hard (a 640px-tall phone would otherwise need ~0.55x,
+   shrinking tap targets to ~16px). The canvas yields some height and
+   the live-bets table — already below the fold on phone viewports —
+   steps aside; the panel then takes exactly the space that is left,
+   so nothing is clipped and nothing scrolls. Desktop keeps the normal
+   55/45 split. The JS fit still guarantees both cards always fit, so
+   browsers without :has() simply fall back to the scale-only layout. */
+@media (max-width: 767px) {
+  /* The panel sizes to its two cards; the canvas absorbs whatever is left,
+     so a tall phone gets no dead space and a short one keeps at least a
+     usable game view before the fit logic starts scaling the cards. */
+  .game-fit .game-middle:has(.betting-panel.is-dual) .game-panel-sec {
+    flex: 0 0 auto;
+    max-height: none;
+  }
+  .game-fit .game-middle:has(.betting-panel.is-dual) .game-canvas-sec {
+    flex: 1 1 auto;
+    max-height: 55vh;
+    min-height: 32vh;
+  }
+  .game-fit .game-middle:has(.betting-panel.is-dual) .game-canvas-box {
+    max-height: 55vh;
+  }
+  .game-fit .game-middle:has(.betting-panel.is-dual) .game-bets-sec {
+    display: none;
+  }
+}
 .game-fit .game-bets-sec {
   flex: 1 1 0;
   min-height: 80px;
