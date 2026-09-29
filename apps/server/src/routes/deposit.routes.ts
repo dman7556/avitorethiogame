@@ -1,4 +1,4 @@
-import { Router, Response } from 'express';
+import { Router, Request, Response, NextFunction } from 'express';
 import multer from 'multer';
 import { z } from 'zod';
 import { finLog } from '../lib/logger';
@@ -30,6 +30,29 @@ const upload = multer({
   },
 });
 
+// Multer failures happen inside the middleware, before the route body runs, so
+// translate them here: the client needs a stable `code` to show the right
+// guidance (the generic global handler only says "Payload too large").
+const uploadScreenshot = (req: Request, res: Response, next: NextFunction) => {
+  upload.single('screenshot')(req, res, (err: any) => {
+    if (!err) return next();
+
+    if (err.code === 'LIMIT_FILE_SIZE') {
+      res.status(413).json({
+        success: false,
+        error: 'Screenshot is too large — the maximum size is 5MB.',
+        code: 'FILE_TOO_LARGE',
+      });
+      return;
+    }
+    if (typeof err.message === 'string' && err.message.includes('Invalid file type')) {
+      res.status(400).json({ success: false, error: err.message, code: 'INVALID_FILE_TYPE' });
+      return;
+    }
+    next(err);
+  });
+};
+
 const router = Router();
 
 // All routes require authentication
@@ -41,7 +64,7 @@ const createDepositSchema = z.object({
   paymentMethod: z.enum([PaymentMethod.TELEBIRR, PaymentMethod.CBE]),
 });
 
-router.post('/', upload.single('screenshot'), async (req: AuthRequestWithFile, res: Response) => {
+router.post('/', uploadScreenshot, async (req: AuthRequestWithFile, res: Response) => {
   try {
     finLog.deposit({ requestId: req.requestId, event: 'request_received', userId: req.user?.userId, hasFile: !!req.file });
     

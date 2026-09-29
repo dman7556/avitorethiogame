@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import { X, Upload, Copy, CheckCircle } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { apiUrl } from '../lib/config';
+import { GAME_CONSTANTS } from '../shared/types';
 
 interface DepositModalProps {
   isOpen: boolean;
@@ -13,6 +14,45 @@ const PAYMENT_METHODS = [
   { id: 'cbe', name: 'CBE', fullName: 'Commercial Bank of Ethiopia', type: 'bank' },
   { id: 'telebirr', name: 'Telebirr', fullName: 'Telebirr Mobile Money', type: 'mobile' }
 ];
+
+// Must match the server (routes/deposit.routes.ts multer limit + upload.service).
+// Checked here first so an oversized/unsupported screenshot fails instantly on
+// the phone, with a message that says what to do — instead of round-tripping a
+// 5MB upload just to be rejected.
+const MAX_SCREENSHOT_MB = 5;
+const MAX_SCREENSHOT_BYTES = MAX_SCREENSHOT_MB * 1024 * 1024;
+const ACCEPTED_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+
+/** Returns a user-facing problem description, or null when the file is usable. */
+function checkScreenshot(file: File): string | null {
+  const type = (file.type || '').toLowerCase();
+  // An empty type means the browser didn't recognise it (common for HEIC).
+  if (!type || !ACCEPTED_TYPES.includes(type)) {
+    return `That file type isn't supported. Please choose a JPG, PNG, or WEBP image (got ${type || file.name.split('.').pop() || 'unknown'}).`;
+  }
+  if (file.size > MAX_SCREENSHOT_BYTES) {
+    const mb = (file.size / (1024 * 1024)).toFixed(1);
+    return `That screenshot is ${mb}MB — the maximum is ${MAX_SCREENSHOT_MB}MB. Try a smaller image or take a fresh screenshot.`;
+  }
+  if (file.size === 0) {
+    return 'That file is empty. Please choose the screenshot your bank or Telebirr app saved.';
+  }
+  return null;
+}
+
+// Server error codes → plain-language guidance. Every one of these used to be
+// swallowed into a single "Deposit request failed" message that told the user
+// nothing (the API returns `error`, not `message`).
+const UPLOAD_ERROR_MESSAGES: Record<string, string> = {
+  SCREENSHOT_REQUIRED: 'Please choose a payment screenshot to upload.',
+  INVALID_FILE_TYPE: "That file type isn't supported. Please upload a JPG, PNG, or WEBP image.",
+  INVALID_FILE_CONTENT: "That file isn't a real image. Please upload the screenshot saved by your bank or Telebirr app.",
+  INVALID_FILE_SIZE: `That screenshot is too large — the maximum is ${MAX_SCREENSHOT_MB}MB.`,
+  FILE_TOO_LARGE: `That screenshot is too large — the maximum is ${MAX_SCREENSHOT_MB}MB.`,
+  UPLOAD_FAILED: "We couldn't store the screenshot right now. Please try again in a moment.",
+  MISSING_FILE_BUFFER: "The upload didn't complete. Please try again.",
+  INVALID_AMOUNT: 'Enter a valid amount (at most 2 decimals).',
+};
 
 export default function DepositModal({ isOpen, onClose, balance }: DepositModalProps) {
   const [amount, setAmount] = useState('');
@@ -35,11 +75,28 @@ export default function DepositModal({ isOpen, onClose, balance }: DepositModalP
       setError('Please upload a payment screenshot');
       return;
     }
-    
-    // Amount is now optional - if provided, validate minimum
-    if (amount && parseFloat(amount) < 50) {
-      setError('Minimum deposit amount is 50 ETB');
+
+    // Re-check on submit: the file may predate a device change, or the browser
+    // may have re-typed it between selection and submit.
+    const fileProblem = checkScreenshot(screenshot);
+    if (fileProblem) {
+      setError(fileProblem);
       return;
+    }
+    
+    // Amount is optional — an admin verifies it. When supplied, validate
+    // against the SAME limits the server enforces (GAME_CONSTANTS) so the form
+    // can't accept a value the API will reject.
+    if (amount) {
+      const parsed = parseFloat(amount);
+      if (Number.isFinite(parsed) && parsed > 0 && parsed < GAME_CONSTANTS.MINIMUM_DEPOSIT) {
+        setError(`Minimum deposit amount is ${GAME_CONSTANTS.MINIMUM_DEPOSIT} ETB`);
+        return;
+      }
+      if (Number.isFinite(parsed) && parsed > GAME_CONSTANTS.DEFAULT_MAXIMUM_DEPOSIT) {
+        setError(`Maximum deposit amount is ${GAME_CONSTANTS.DEFAULT_MAXIMUM_DEPOSIT.toLocaleString()} ETB`);
+        return;
+      }
     }
 
     setLoading(true);
@@ -63,12 +120,35 @@ export default function DepositModal({ isOpen, onClose, balance }: DepositModalP
         setScreenshot(null);
         setError('');
       } else {
-        const data = await response.json();
-        setError(data.message || 'Deposit request failed');
+        // Surface WHY it failed. Body-parser/multer rejections (e.g. the 5MB
+        // cap) may not be JSON, and the API uses `error` + `code` rather than
+        // `message` — reading the wrong field is what made every failure look
+        // like an unexplained "Deposit request failed".
+        let payload: any = null;
+        try {
+          payload = await response.json();
+        } catch {
+          payload = null;
+        }
+
+        const code: string | undefined = payload?.code;
+        const serverMessage: string | undefined = payload?.error || payload?.message;
+
+        if (response.status === 401) {
+          setError('Your session expired. Please log in again and retry.');
+        } else if (response.status === 413 || code === 'FILE_TOO_LARGE') {
+          setError(`That screenshot is too large — the maximum is ${MAX_SCREENSHOT_MB}MB. Try a smaller image or take a fresh screenshot.`);
+        } else {
+          setError(
+            (code && UPLOAD_ERROR_MESSAGES[code]) ||
+            serverMessage ||
+            `We couldn't submit your deposit (error ${response.status}). Please try again.`
+          );
+        }
       }
     } catch (error) {
       console.error('Deposit failed:', error);
-      setError('Network error. Please try again.');
+      setError('Network error. Please check your connection and try again.');
     } finally {
       setLoading(false);
     }
@@ -126,8 +206,8 @@ export default function DepositModal({ isOpen, onClose, balance }: DepositModalP
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 placeholder="Enter amount (admin can adjust)"
-                min="50"
-                max="50000"
+                min={GAME_CONSTANTS.MINIMUM_DEPOSIT}
+                max={GAME_CONSTANTS.DEFAULT_MAXIMUM_DEPOSIT}
                 step="any"
                 className="w-full bg-sky-dark border border-sky-border rounded-xl px-4 py-3 pr-14 text-white placeholder-sky-text-muted focus:outline-none focus:border-sky-green text-base"
               />
@@ -235,15 +315,33 @@ export default function DepositModal({ isOpen, onClose, balance }: DepositModalP
                   Tap to upload screenshot
                 </div>
                 <div className="text-xs text-sky-text-muted mt-1">
-                  JPG, PNG up to 50MB
+                  JPG, PNG or WEBP • up to {MAX_SCREENSHOT_MB}MB
                 </div>
               </button>
             )}
             <input
               ref={fileInputRef}
               type="file"
-              accept="image/*"
-              onChange={(e) => setScreenshot(e.target.files?.[0] || null)}
+              // Listing formats explicitly (instead of image/*) makes iOS
+              // convert an unsupported HEIC capture into a JPEG for us, so
+              // iPhone photos don't silently fail the server's type check.
+              accept="image/png,image/jpeg,image/webp"
+              onChange={(e) => {
+                const file = e.target.files?.[0] || null;
+                e.target.value = ''; // allow re-picking the same file
+                if (!file) {
+                  setScreenshot(null);
+                  return;
+                }
+                const problem = checkScreenshot(file);
+                if (problem) {
+                  setScreenshot(null);
+                  setError(problem);
+                  return;
+                }
+                setError('');
+                setScreenshot(file);
+              }}
               className="hidden"
               aria-label="Upload payment screenshot"
             />
