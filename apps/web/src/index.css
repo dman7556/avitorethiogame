@@ -181,8 +181,9 @@ body {
   overflow-y: auto;
 }
 .game-fit .game-canvas-sec {
-  flex: 5 1 0;
+  flex: 0 0 55%; /* Mobile: 55% for canvas */
   min-height: 112px;
+  max-height: 55vh;
   display: flex;
 }
 /* The section is a row-flex; its inner wrapper must take real width or
@@ -196,9 +197,13 @@ body {
 .game-fit .game-canvas-box {
   height: auto !important;
   min-height: 104px !important;
-  max-height: 300px;
+  max-height: 55vh; /* Mobile: match 55% container */
   flex: 1 1 auto;
   width: 100%;
+}
+.game-fit .game-panel-sec {
+  flex: 0 0 45%; /* Mobile: 45% for betting panel */
+  max-height: 45vh;
 }
 .game-fit .game-bets-sec {
   flex: 1 1 0;
@@ -210,6 +215,168 @@ body {
 .game-fit .action-btn {
   max-height: 96px;
   min-height: 64px;
+}
+
+/* Mobile: Scale down betting card elements (same as desktop) */
+.game-fit .game-panel-sec .bet-card {
+  padding-top: 2px;
+  padding-bottom: 8px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.game-fit .game-panel-sec .seg-wrap {
+  padding-top: 2px;
+}
+.game-fit .game-panel-sec .seg-control {
+  width: 150px;
+  padding: 2px;
+}
+.game-fit .game-panel-sec .seg-btn {
+  padding: 3px 0;
+  min-height: 30px;
+  font-size: 10px;
+}
+
+.game-fit .game-panel-sec .stepper {
+  height: 36px;
+  padding: 2px;
+}
+.game-fit .game-panel-sec .stepper-btn {
+  width: 32px;
+  height: 32px;
+  border-width: 1px;
+}
+.game-fit .game-panel-sec .stepper-btn svg {
+  width: 12px;
+  height: 12px;
+}
+.game-fit .game-panel-sec .stepper-amount {
+  font-size: 12px;
+  min-height: 32px;
+}
+
+.game-fit .game-panel-sec .quick-grid {
+  gap: 4px 4px;
+}
+.game-fit .game-panel-sec .quick-btn {
+  min-height: 28px;
+  height: 28px;
+  font-size: 10px;
+}
+
+.game-fit .game-panel-sec .action-btn {
+  min-height: 48px;
+  max-height: 60px;
+  border-radius: 8px;
+  gap: 1px;
+}
+.game-fit .game-panel-sec .action-btn .btn-line1 {
+  font-size: 14px;
+  letter-spacing: 0.3px;
+}
+.game-fit .game-panel-sec .action-btn .btn-line2 {
+  font-size: 11px;
+}
+.game-fit .game-panel-sec .action-btn svg {
+  width: 14px;
+  height: 14px;
+  margin-bottom: 0;
+}
+
+.game-fit .game-panel-sec .bet-grid {
+  gap: 6px;
+}
+
+.game-fit .game-panel-sec .px-3 {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+.game-fit .game-panel-sec .space-y-2\.5 > * + * {
+  margin-top: 6px;
+}
+.game-fit .game-panel-sec .space-y-2 > * + * {
+  margin-top: 4px;
+}
+.game-fit .game-panel-sec .mt-3 {
+  margin-top: 8px !important;
+}
+
+.game-fit .game-panel-sec .pending-chip {
+  padding: 6px 8px;
+  font-size: 10px;
+  gap: 6px;
+}
+.game-fit .game-panel-sec .pending-chip .w-2 {
+  width: 6px;
+  height: 6px;
+}
+
+.game-fit .game-panel-sec input[type="text"] {
+  padding: 6px 8px;
+  padding-right: 28px;
+  font-size: 11px;
+}
+.game-fit .game-panel-sec label {
+  font-size: 9px;
+  margin-bottom: 3px;
+}
+.game-fit .game-panel-sec .grid-cols-2 {
+  gap: 6px;
+}
+.game-fit .game-panel-sec .absolute.right-3 {
+  right: 8px;
+  font-size: 9px;
+}
+
+.game-fit .game-panel-sec .text-xs {
+  font-size: 9px;
+}
+.game-fit .game-panel-sec .text-sm {
+  font-size: 10px;
+}
+.game-fit .game-panel-sec .text-\[10\.5px\] {
+  font-size: 8px;
+}
+.game-fit .game-panel-sec .text-\[11px\] {
+  font-size: 9px;
+}
+.game-fit .game-panel-sec .text-base {
+  font-size: 12px;
+}
+
+.game-fit .game-panel-sec .text-xl {
+  font-size: 14px;
+}
+.game-fit .game-panel-sec .font-bold {
+  font-weight: 700;
+}
+.game-fit .game-panel-sec .py-2 {
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+.game-fit .game-panel-sec .mt-0\.5 {
+  margin-top: 2px;
+}
+
+.game-fit .game-panel-sec .card-minimize {
+  width: 22px;
+  height: 22px;
+  top: 6px;
+  right: 6px;
+}
+.game-fit .game-panel-sec .card-minimize svg {
+  width: 11px;
+  height: 11px;
+}
+
+.game-fit .game-panel-sec .flex-col.gap-1\.5 {
+  gap: 4px;
+}
+
+.game-fit .game-panel-sec button[class*="border-dashed"] {
+  padding: 8px 0;
+  font-size: 11px;
 }
 /* Desktop = the phone design, EXACTLY: the game column, header content
    and history strip are pinned to the approved 375px phone width and
@@ -223,26 +390,204 @@ body {
     margin-left: auto;
     margin-right: auto;
   }
-  /* Desktop layout: canvas takes most space, panel at bottom, no bets table */
+  /* Desktop layout: canvas takes 55% space, panel takes 45%, no bets table */
   .game-fit .game-hist-sec {
     order: 1;
   }
   .game-fit .game-canvas-sec {
     order: 2;
     min-height: 300px;
-    flex: 1 1 auto;
-    max-height: none; /* Allow canvas to grow */
+    flex: 0 0 55%; /* Fixed 55% of available space */
+    max-height: 55vh; /* Cap at 55% of viewport height */
   }
   .game-fit .game-canvas-box {
     max-height: none !important; /* Remove 300px limit on desktop */
+    height: 100% !important; /* Fill the 55% container */
   }
   .game-fit .game-panel-sec {
     order: 3;
-    max-height: none; /* Allow full panel height */
+    flex: 0 0 45%; /* Fixed 45% of available space */
+    max-height: 45vh; /* Cap at 45% of viewport height */
+    overflow-y: auto; /* Allow scrolling if content exceeds 45% */
   }
   /* Hide bets section completely on desktop */
   .game-fit .game-bets-sec {
     display: none;
+  }
+  
+  /* Scale down betting card elements for desktop 40% layout - MORE COMPACT */
+  .game-fit .game-panel-sec .bet-card {
+    padding-top: 2px;
+    padding-bottom: 8px;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  
+  /* Segment control (Bet/Auto tabs) - smaller */
+  .game-fit .game-panel-sec .seg-wrap {
+    padding-top: 2px;
+  }
+  .game-fit .game-panel-sec .seg-control {
+    width: 150px;
+    padding: 2px;
+  }
+  .game-fit .game-panel-sec .seg-btn {
+    padding: 3px 0;
+    min-height: 30px;
+    font-size: 10px;
+  }
+  
+  /* Stepper (amount input with +/- buttons) - more compact */
+  .game-fit .game-panel-sec .stepper {
+    height: 36px;
+    padding: 2px;
+  }
+  .game-fit .game-panel-sec .stepper-btn {
+    width: 32px;
+    height: 32px;
+    border-width: 1px;
+  }
+  .game-fit .game-panel-sec .stepper-btn svg {
+    width: 12px;
+    height: 12px;
+  }
+  .game-fit .game-panel-sec .stepper-amount {
+    font-size: 12px;
+    min-height: 32px;
+  }
+  
+  /* Quick amount buttons - smaller */
+  .game-fit .game-panel-sec .quick-grid {
+    gap: 4px 4px;
+  }
+  .game-fit .game-panel-sec .quick-btn {
+    min-height: 28px;
+    height: 28px;
+    font-size: 10px;
+  }
+  
+  /* Main action buttons (BET, CASHOUT, CANCEL) - more compact */
+  .game-fit .game-panel-sec .action-btn {
+    min-height: 48px;
+    max-height: 60px;
+    border-radius: 8px;
+    gap: 1px;
+  }
+  .game-fit .game-panel-sec .action-btn .btn-line1 {
+    font-size: 14px;
+    letter-spacing: 0.3px;
+  }
+  .game-fit .game-panel-sec .action-btn .btn-line2 {
+    font-size: 11px;
+  }
+  .game-fit .game-panel-sec .action-btn svg {
+    width: 14px;
+    height: 14px;
+    margin-bottom: 0;
+  }
+  
+  /* Bet grid spacing - tighter */
+  .game-fit .game-panel-sec .bet-grid {
+    gap: 6px;
+  }
+  
+  /* Spacing between cards and elements - more compact */
+  .game-fit .game-panel-sec .px-3 {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  .game-fit .game-panel-sec .space-y-2\.5 > * + * {
+    margin-top: 6px;
+  }
+  .game-fit .game-panel-sec .space-y-2 > * + * {
+    margin-top: 4px;
+  }
+  .game-fit .game-panel-sec .mt-3 {
+    margin-top: 8px !important;
+  }
+  
+  /* Pending chip - smaller */
+  .game-fit .game-panel-sec .pending-chip {
+    padding: 6px 8px;
+    font-size: 10px;
+    gap: 6px;
+  }
+  .game-fit .game-panel-sec .pending-chip .w-2 {
+    width: 6px;
+    height: 6px;
+  }
+  
+  /* Auto mode inputs - more compact */
+  .game-fit .game-panel-sec input[type="text"] {
+    padding: 6px 8px;
+    padding-right: 28px;
+    font-size: 11px;
+  }
+  .game-fit .game-panel-sec label {
+    font-size: 9px;
+    margin-bottom: 3px;
+  }
+  .game-fit .game-panel-sec .grid-cols-2 {
+    gap: 6px;
+  }
+  .game-fit .game-panel-sec .absolute.right-3 {
+    right: 8px;
+    font-size: 9px;
+  }
+  
+  /* Text size reductions - more aggressive */
+  .game-fit .game-panel-sec .text-xs {
+    font-size: 9px;
+  }
+  .game-fit .game-panel-sec .text-sm {
+    font-size: 10px;
+  }
+  .game-fit .game-panel-sec .text-\[10\.5px\] {
+    font-size: 8px;
+  }
+  .game-fit .game-panel-sec .text-\[11px\] {
+    font-size: 9px;
+  }
+  .game-fit .game-panel-sec .text-base {
+    font-size: 12px;
+  }
+  
+  /* Cashed out result display - smaller */
+  .game-fit .game-panel-sec .text-xl {
+    font-size: 14px;
+  }
+  .game-fit .game-panel-sec .font-bold {
+    font-weight: 700;
+  }
+  .game-fit .game-panel-sec .py-2 {
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+  .game-fit .game-panel-sec .mt-0\.5 {
+    margin-top: 2px;
+  }
+  
+  /* Card minimize button - smaller */
+  .game-fit .game-panel-sec .card-minimize {
+    width: 22px;
+    height: 22px;
+    top: 6px;
+    right: 6px;
+  }
+  .game-fit .game-panel-sec .card-minimize svg {
+    width: 11px;
+    height: 11px;
+  }
+  
+  /* Flex column gaps */
+  .game-fit .game-panel-sec .flex-col.gap-1\.5 {
+    gap: 4px;
+  }
+  
+  /* Add second bet button */
+  .game-fit .game-panel-sec button[class*="border-dashed"] {
+    padding: 8px 0;
+    font-size: 11px;
   }
 }
 /* Tier 2 — very short viewports (any width): compress chrome paddings,

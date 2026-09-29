@@ -62,6 +62,11 @@ export default function BetCard({
   const multiplier = useTickMultiplier(); // #8: 20Hz value isolated from the main context
   const navigate = useNavigate();
 
+  // Format amount: whole numbers without decimals (4), decimals with up to 2 places (4.5, 4.25)
+  const formatAmount = (amount: number): string => {
+    return amount % 1 === 0 ? amount.toString() : amount.toFixed(2).replace(/\.?0+$/, '');
+  };
+
   // Validation helpers for bet input
   const validateBetAmount = (value: number): { isValid: boolean; reason?: string } => {
     if (value < GAME_CONSTANTS.MIN_BET) {
@@ -149,9 +154,9 @@ export default function BetCard({
       return { color: 'text-sky-red', hint: `Minimum ${GAME_CONSTANTS.MIN_BET} ETB` };
     }
     if (numValue > balance) {
-      return { color: 'text-sky-red', hint: `Exceeds balance by ${(numValue - balance).toFixed(2)} ETB` };
+      return { color: 'text-sky-red', hint: `Exceeds balance by ${formatAmount(numValue - balance)} ETB` };
     }
-    return { color: 'text-sky-text-secondary', hint: `Available: ${(balance - numValue).toFixed(2)} ETB` };
+    return { color: 'text-sky-text-secondary', hint: `Available: ${formatAmount(balance - numValue)} ETB` };
   };
 
   const betValidationState = getBetValidationState();
@@ -341,7 +346,7 @@ export default function BetCard({
         <input
           type="text"
           inputMode="decimal"
-          value={betInputFocused ? betInputValue : (isGuest ? guestAmount : bet.amount).toFixed(2)}
+          value={betInputFocused ? betInputValue : formatAmount(isGuest ? guestAmount : bet.amount)}
           onChange={handleBetInputChange}
           onFocus={() => setBetInputFocused(true)}
           onBlur={handleBetInputBlur}
@@ -396,7 +401,7 @@ export default function BetCard({
             className="action-btn action-bet"
           >
             <LogIn size={18} className="mb-0.5" />
-            {actionLabel('BET', `${(isGuest ? guestAmount : bet.amount).toFixed(2)} ETB`)}
+            {actionLabel('BET', `${formatAmount(isGuest ? guestAmount : bet.amount)} ETB`)}
           </button>
         </div>
       </div>
@@ -422,7 +427,7 @@ export default function BetCard({
             <div className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: '#ffc107' }} />
             <span>{isQueued ? 'Queued for next round' : 'Pending'}</span>
             <span className="opacity-50">•</span>
-            <span className="font-mono">{bet.amount.toFixed(2)} ETB</span>
+            <span className="font-mono">{formatAmount(bet.amount)} ETB</span>
           </div>
           {/* Only show cancel for PLACED or QUEUED status, not for ACTIVE */}
           {onCancel && (bet.status === 'PLACED' || bet.status === 'QUEUED' || bet.status === 'PENDING') && (
@@ -435,7 +440,7 @@ export default function BetCard({
               {isCancelling ? (
                 <span className="animate-pulse text-base">Cancelling...</span>
               ) : (
-                actionLabel('CANCEL', `${bet.amount.toFixed(2)} ETB`)
+                actionLabel('CANCEL', `${formatAmount(bet.amount)} ETB`)
               )}
             </button>
           )}
@@ -446,7 +451,7 @@ export default function BetCard({
       {isCashedOut && (
         <div className="mt-3 text-center py-2">
           <div className="text-sky-green font-bold text-xl font-mono">
-            +{bet.payout?.toFixed(2)} ETB
+            +{formatAmount(bet.payout || 0)} ETB
           </div>
           <div className="text-sky-text-secondary text-xs mt-0.5">
             Cashed out at {bet.cashoutMultiplier?.toFixed(2)}x
@@ -465,7 +470,7 @@ export default function BetCard({
             {isCashing ? (
               <span className="animate-pulse text-base">Cashing out...</span>
             ) : (
-              actionLabel('CASH OUT', `${cashoutValue.toFixed(2)} ETB`)
+              actionLabel('CASH OUT', `${formatAmount(cashoutValue)} ETB`)
             )}
           </button>
         </div>
@@ -486,12 +491,12 @@ export default function BetCard({
                 {isPlacing ? (
                   <span className="animate-pulse text-base">Placing...</span>
                 ) : (
-                  actionLabel('BET', `${betInputNum.toFixed(2)} ETB`)
+                  actionLabel('BET', `${formatAmount(betInputNum)} ETB`)
                 )}
               </button>
             ) : (
               <div className="action-btn action-bet" style={{ opacity: 0.4 }}>
-                {actionLabel('BET', `${betInputNum.toFixed(2)} ETB`)}
+                {actionLabel('BET', `${formatAmount(betInputNum)} ETB`)}
               </div>
             )}
           </div>
@@ -563,7 +568,7 @@ export default function BetCard({
               {isPlacing ? (
                 <span className="animate-pulse text-base">Placing...</span>
               ) : (
-                actionLabel('AUTO BET', `${autoBetAmount.toFixed(2)} ETB`)
+                actionLabel('AUTO BET', `${formatAmount(autoBetAmount)} ETB`)
               )}
             </button>
           </div>
