@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { apiUrl } from '../../lib/config';
+import { adminActionErrorMessage } from '../../lib/adminErrors';
 
 interface DepositRow {
   id: string;
@@ -167,8 +168,8 @@ export default function DepositsSection({
       const amt = parseFloat(creditAmount);
       if (!isFinite(amt) || amt <= 0) { setActionError('Enter a valid credit amount greater than 0'); return; }
       if (Math.round(amt * 100) !== amt * 100) { setActionError('Amount supports at most 2 decimal places'); return; }
-      // H1 dual control: every approval needs a recorded reason, and credits
-      // beyond min(10× submitted, maximumDeposit) require a second admin.
+      // Approvals always need a recorded reason. Credits beyond the max
+      // deposit cap are rejected by the server and demand a second admin.
       if (!reason.trim()) { setActionError('An approval reason is required'); return; }
     } else if (!reason.trim()) {
       setActionError('A rejection reason is required');
@@ -192,7 +193,7 @@ export default function DepositsSection({
         ),
       });
       const data = await res.json();
-      if (!data.success) throw new Error(data.error || `Failed to ${action} deposit`);
+      if (!data.success) throw new Error(adminActionErrorMessage(data.code, data.error));
 
       // Close modals and refresh the list + dashboard totals
       setConfirming(false);

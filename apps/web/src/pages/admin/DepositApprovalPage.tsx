@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { X, ChevronLeft, Check, AlertCircle } from 'lucide-react';
 import { apiUrl, uploadUrl } from '../../lib/config';
+import { adminActionErrorMessage } from '../../lib/adminErrors';
 
 interface Deposit {
   id: string;
@@ -167,7 +168,7 @@ export default function DepositApprovalPage() {
 
       if (!res.ok) {
         const data = await res.json();
-        throw new Error(data.error || 'Failed to approve deposit');
+        throw new Error(adminActionErrorMessage(data.code, data.error || 'Failed to approve deposit'));
       }
 
       // Success - refresh and reset
@@ -206,7 +207,7 @@ export default function DepositApprovalPage() {
 
       if (!res.ok) {
         const data = await res.json();
-        throw new Error(data.error || 'Failed to reject deposit');
+        throw new Error(adminActionErrorMessage(data.code, data.error || 'Failed to reject deposit'));
       }
 
       await fetchDeposits();

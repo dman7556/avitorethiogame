@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { apiUrl, uploadUrl } from '../../lib/config';
+import { adminActionErrorMessage } from '../../lib/adminErrors';
 import { 
   Search, 
   ChevronLeft, 
@@ -153,7 +154,7 @@ export default function AdminDeposits() {
       });
 
       const data = await res.json();
-      if (!data.success) throw new Error(data.error);
+      if (!data.success) throw new Error(adminActionErrorMessage(data.code, data.error));
 
       setShowActionModal(false);
       setSelectedDeposit(null);
@@ -183,7 +184,7 @@ export default function AdminDeposits() {
       });
 
       const data = await res.json();
-      if (!data.success) throw new Error(data.error);
+      if (!data.success) throw new Error(adminActionErrorMessage(data.code, data.error));
 
       setShowActionModal(false);
       setSelectedDeposit(null);

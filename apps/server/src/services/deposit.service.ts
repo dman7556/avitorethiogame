@@ -409,13 +409,17 @@ export class DepositService {
       throw new DepositError('Credit amount supports at most 2 decimal places', 'INVALID_CREDIT_AMOUNT');
     }
 
-    // ── H1 dual-control envelope: credit ≤ min(10 × submittedAmount, maximumDeposit) ──
+    // ── Approval envelope (product decision, 2026-09-30) ──
     //
-    // The FIRST-admin request recording MUST happen OUTSIDE the settlement
-    // transaction below: throwing inside $transaction rolls the whole
-    // transaction back, which would erase the request record and leave dual
-    // control with nothing to approve. The request commits immediately and
-    // independently; only then do we refuse the credit.
+    // The envelope is the maximumDeposit setting — a HARD ceiling any single
+    // admin may credit, including deposits where the user left the amount
+    // blank (submittedAmount 0). The earlier min(10 × submittedAmount, cap)
+    // rule wedged every blank-amount deposit in PENDING forever wherever only
+    // one admin account exists: envelope 0 ⇒ any credit threw
+    // OVERRIDE_REQUIRED and only a second, different admin could release it.
+    // Credits ABOVE the cap still require dual control via the override
+    // machinery below — the fraud guard survives, it just starts where a
+    // single admin's authority ends.
     const settings = await settingsService.getSettings();
     {
       const pre = await prisma.deposit.findUnique({
@@ -425,9 +429,7 @@ export class DepositService {
       if (!pre) {
         throw new DepositError('Deposit not found', 'DEPOSIT_NOT_FOUND');
       }
-      const maxDepositCap = money.fromNumber(settings.maximumDeposit);
-      const envelopeCap = money.fromDecimal(pre.submittedAmount).mul(10);
-      const envelope = money.gt(envelopeCap, maxDepositCap) ? maxDepositCap : envelopeCap;
+      const envelope = money.fromNumber(settings.maximumDeposit);
 
       if (money.gt(creditAmount, envelope) && !pre.overrideRequestedBy) {
         const claimed = await prisma.deposit.updateMany({
@@ -487,15 +489,10 @@ export class DepositService {
         throw new DepositError('Deposit not found', 'DEPOSIT_NOT_FOUND');
       }
 
-      // Envelope = the LOWER of (10 × the user's submittedAmount) and the
-      // maximumDeposit setting. maximumDeposit is a hard ceiling even when
-      // 10 × submittedAmount is larger. Note: unverified deposits have
-      // submittedAmount 0 ⇒ envelope 0 ⇒ every credit requires dual control
-      // (deliberate: those are the exact flows where admins type amounts in
-      // from a screenshot with no user-claimed figure).
-      const maxDepositCap = money.fromNumber(settings.maximumDeposit);
-      const envelopeCap = money.fromDecimal(deposit.submittedAmount).mul(10);
-      const envelope = money.gt(envelopeCap, maxDepositCap) ? maxDepositCap : envelopeCap;
+      // Envelope = the maximumDeposit setting (see the pre-transaction block
+      // above for why the old min(10 × submittedAmount, cap) rule was
+      // dropped). Credits above the cap still demand dual control.
+      const envelope = money.fromNumber(settings.maximumDeposit);
 
       let dualControl: { requestedBy: string } | null = null;
       if (money.gt(creditAmount, envelope)) {

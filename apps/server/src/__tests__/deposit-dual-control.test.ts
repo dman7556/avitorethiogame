@@ -1,15 +1,16 @@
 /**
- * H1 REGRESSION TESTS — Deposit approval envelope + dual control.
+ * Deposit approval envelope + dual control (regression tests).
  *
- * Risks being guarded against:
- *  1. An admin could previously credit ANY amount (no envelope) — a compromised
- *     or rogue admin session could mint money.
- *  2. No second-approval path existed at all.
+ * Product decision (2026-09-30): the envelope a SINGLE admin may credit is
+ * the maximumDeposit setting — regardless of what the user submitted (even
+ * blank-amount deposits). Above the cap the credit is NOT applied: an
+ * override request is recorded and a DIFFERENT admin must approve it for
+ * the same amount. (The earlier min(10 × submittedAmount, cap) rule wedged
+ * blank-amount deposits in PENDING forever wherever only one admin exists.)
  *
- * The fix: creditAmount must be ≤ min(10 × submittedAmount, maximumDeposit).
- * Above that envelope the credit is NOT applied — an override request is
- * recorded and a DIFFERENT admin must approve it for the same amount.
- * maximumDeposit is a hard ceiling regardless of the 10× multiplier.
+ * Risks still guarded against:
+ *  1. A single admin crediting ABOVE the cap — needs dual control.
+ *  2. No second-approval path — the override machinery below exercises it.
  *
  * NOTE: admins are REAL User rows here — AdminAuditLog has an FK to User, and
  * audit writes are non-critical (failures swallowed), so fake admin IDs would
@@ -90,7 +91,7 @@ describe('H1: deposit approval envelope + dual control', () => {
   }
 
   it('credit within the envelope: applies normally with a single admin, audit logged with the reason', async () => {
-    const deposit = await makeDeposit(500); // envelope = min(10×500, 50000) = 5000
+    const deposit = await makeDeposit(500); // envelope = maximumDeposit = 50000 — 450 is a normal approval
     const result = await depositService.approveDeposit({
       depositId: deposit.id,
       adminId: adminA.id,
@@ -110,9 +111,9 @@ describe('H1: deposit approval envelope + dual control', () => {
     expect(audits.some((a) => a.action === 'DEPOSIT_OVERRIDE_REQUESTED')).toBe(false);
   });
 
-  describe('out-of-envelope credit requires dual control', () => {
+  describe('above-cap credit requires dual control', () => {
     let depositId: string;
-    const CREDIT = 6000; // > envelope 5000, < cap 50000
+    const CREDIT = 60000; // > cap 50000 — beyond a single admin's authority
 
     it('first admin: request recorded, credit BLOCKED, wallet untouched, audit written', async () => {
       const deposit = await makeDeposit(500);
@@ -196,8 +197,8 @@ describe('H1: deposit approval envelope + dual control', () => {
     });
   });
 
-  it('maximumDeposit is a hard ceiling: blocked even when within 10× submittedAmount', async () => {
-    const deposit = await makeDeposit(10000); // 10× = 100000, but cap = 50000 → envelope 50000
+  it('above-cap credit is parked for dual control even on large submitted amounts', async () => {
+    const deposit = await makeDeposit(10000); // submitted 10000, cap still 50000
     const before = await walletBalance(user.id);
 
     await expect(

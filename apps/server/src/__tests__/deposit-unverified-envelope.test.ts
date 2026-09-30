@@ -1,20 +1,16 @@
 /**
- * DECISIVE TEST — does an UNVERIFIED deposit (user leaves the amount field
- * empty; isAmountUnverified=true, submittedAmount persisted as 0) get an
- * approval envelope of 0 (H1 guarantee: every free-typed credit requires
- * dual control) or an envelope of maximumDeposit (a bypass: a single admin
- * could credit up to the cap with no second approval)?
+ * UNVERIFIED deposits (user leaves the amount field empty;
+ * isAmountUnverified=true, submittedAmount persisted as 0).
  *
- * Context: the pending deposit-routes work makes the user-supplied amount
- * OPTIONAL. approveDeposit()'s envelope is min(10 × submittedAmount, cap).
- * For submittedAmount = 0 that is min(0, cap) = 0 — H1's summary and the
- * "max(...)" prose in a later review contradict each other; this test
- * decides which description matches reality.
+ * Product decision (2026-09-30): a single admin may credit up to the
+ * maximumDeposit setting on ANY deposit — including unverified ones. The
+ * earlier min(10 × submittedAmount, cap) envelope gave unverified deposits
+ * an envelope of 0, wedging them in PENDING forever wherever only one admin
+ * account exists (the operator's actual situation). Credits ABOVE the cap
+ * still require dual control.
  *
  * The service call below mirrors the pending route EXACTLY:
  *   amount: body.amount ?? undefined, isAmountUnverified: !body.amount
- * deposit.service.ts is clean at HEAD, so this exercises the committed
- * approval logic — no working-tree state affects the verdict.
  *
  * Run: npx vitest run src/__tests__/deposit-unverified-envelope.test.ts
  */
@@ -54,12 +50,12 @@ async function cleanupUser(userId: string) {
   await prisma.user.delete({ where: { id: userId } }).catch(() => {});
 }
 
-describe('H1 envelope for UNVERIFIED deposits (submittedAmount = 0)', () => {
+describe('UNVERIFIED deposits (submittedAmount = 0): single-admin approval within the cap', () => {
   let adminA: Awaited<ReturnType<typeof createTestUser>>;
   let adminB: Awaited<ReturnType<typeof createTestUser>>;
   let user: Awaited<ReturnType<typeof createTestUser>>;
   let unverifiedDepositId: string;
-  const CREDIT = 500; // far below maximumDeposit (50 000), above 0 — the disputed zone
+  const CREDIT = 500; // far below maximumDeposit (50 000) — a normal single-admin approval
 
   beforeAll(async () => {
     await prisma.$connect();
@@ -88,7 +84,7 @@ describe('H1 envelope for UNVERIFIED deposits (submittedAmount = 0)', () => {
     });
   }
 
-  it('single admin, credit below maximumDeposit: envelope is 0 → OVERRIDE_REQUIRED, wallet untouched', async () => {
+  it('single admin, credit below maximumDeposit: approved normally, exact amount credited', async () => {
     const deposit = await makeUnverifiedDeposit();
     unverifiedDepositId = deposit.id;
 
@@ -97,41 +93,61 @@ describe('H1 envelope for UNVERIFIED deposits (submittedAmount = 0)', () => {
 
     const before = await walletBalance();
 
+    const result = await depositService.approveDeposit({
+      depositId: deposit.id,
+      adminId: adminA.id,
+      creditAmount: CREDIT,
+      reason: 'Manual verification of bank transfer',
+    });
+
+    // Approved with NO dual control, wallet credited EXACTLY the admin's amount:
+    expect(result.creditAmount).toBe(CREDIT);
+    expect(result.dualControl ?? null).toBeNull();
+    expect(await walletBalance()).toBe(before + CREDIT);
+
+    const d = await prisma.deposit.findUniqueOrThrow({ where: { id: deposit.id } });
+    expect(d.status).toBe('APPROVED');
+    expect(Number(d.verifiedAmount)).toBe(CREDIT);
+    expect(d.overrideRequestedBy).toBeNull();
+
+    const audits = await prisma.adminAuditLog.findMany({
+      where: { targetId: deposit.id, action: 'DEPOSIT_APPROVED' },
+    });
+    expect(audits).toHaveLength(1);
+    expect(JSON.parse(audits[0].metadata!).reason).toBe('Manual verification of bank transfer');
+  });
+
+  it('credit ABOVE maximumDeposit still requires a second admin even on an unverified deposit', async () => {
+    // The same parked deposit was already approved; make a fresh one.
+    const deposit = await makeUnverifiedDeposit();
+    const before = await walletBalance();
+    const OVER_CAP = 60000; // > maximumDeposit (50 000)
+
     await expect(
       depositService.approveDeposit({
         depositId: deposit.id,
         adminId: adminA.id,
-        creditAmount: CREDIT,
-        reason: 'Manual verification of bank transfer',
+        creditAmount: OVER_CAP,
+        reason: 'Above single-admin authority',
       })
     ).rejects.toMatchObject({ code: 'OVERRIDE_REQUIRED' });
 
-    // Not approved, parked for dual control, no money moved:
+    // Parked for dual control, no money moved:
     const d = await prisma.deposit.findUniqueOrThrow({ where: { id: deposit.id } });
     expect(d.status).toBe('PENDING');
     expect(d.overrideRequestedBy).toBe(adminA.id);
     expect(await walletBalance()).toBe(before);
 
-    const audits = await prisma.adminAuditLog.findMany({
-      where: { targetId: deposit.id, action: 'DEPOSIT_OVERRIDE_REQUESTED' },
-    });
-    expect(audits).toHaveLength(1);
-    expect(JSON.parse(audits[0].metadata!).requestedAmount).toBe(CREDIT);
-  });
-
-  it('dual control remains the ONLY path: second admin can approve the parked credit', async () => {
-    const before = await walletBalance();
-
+    // Second, different admin approving the same amount completes it:
     const result = await depositService.approveDeposit({
-      depositId: unverifiedDepositId,
-      adminId: adminB.id, // different admin — legitimate second approval
-      creditAmount: CREDIT,
+      depositId: deposit.id,
+      adminId: adminB.id,
+      creditAmount: OVER_CAP,
       reason: 'Second-admin verification',
     });
-
-    expect(result.creditAmount).toBe(CREDIT);
+    expect(result.creditAmount).toBe(OVER_CAP);
     expect(result.dualControl).toEqual({ requestedBy: adminA.id });
-    expect(await walletBalance()).toBe(before + CREDIT);
+    expect(await walletBalance()).toBe(before + OVER_CAP);
   });
 
   async function walletBalance(): Promise<number> {
