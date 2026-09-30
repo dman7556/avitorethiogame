@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { X, ChevronLeft, Check, AlertCircle } from 'lucide-react';
-import { apiUrl } from '../../lib/config';
+import { apiUrl, uploadUrl } from '../../lib/config';
 
 interface Deposit {
   id: string;
@@ -45,6 +45,31 @@ export default function DepositApprovalPage() {
   const [showApprovalConfirm, setShowApprovalConfirm] = useState(false);
   const [countdownSeconds, setCountdownSeconds] = useState(5);
   const [approvalLoading, setApprovalLoading] = useState(false);
+  // H1: the backend refuses any approval without a recorded reason
+  // (deposit.service.approveDeposit → REASON_REQUIRED, min 4 chars).
+  const [reason, setReason] = useState('');
+
+  /**
+   * Screenshot source for admin <img> tags.
+   *
+   * Cloudinary URLs are absolute and work anywhere. Legacy rows and the
+   * no-credentials local fallback store a server-relative "/uploads/..."
+   * path that lives on the BACKEND — rendered as-is on the Vercel frontend it
+   * 404s and the admin just sees a broken image. uploadUrl() resolves it
+   * against the API origin; if that still fails, onShotError swaps in the
+   * authenticated raw endpoint, which streams the bytes with the admin token.
+   */
+  const shotSrc = (d: Deposit) => uploadUrl(d.screenshotUrl);
+  const rawShotSrc = (d: Deposit) =>
+    token ? apiUrl(`/api/deposits/${d.id}/screenshot/raw?token=${encodeURIComponent(token)}`) : undefined;
+  const onShotError = (d: Deposit) => (e: { currentTarget: HTMLImageElement }) => {
+    const el = e.currentTarget;
+    const raw = rawShotSrc(d);
+    if (raw && !el.dataset.fallback) {
+      el.dataset.fallback = '1';
+      el.src = raw;
+    }
+  };
 
   // Load deposits on mount and when filter changes
   useEffect(() => {
@@ -113,6 +138,12 @@ export default function DepositApprovalPage() {
       return;
     }
 
+    // H1: an approval without a reason is rejected by the API.
+    if (reason.trim().length < 4) {
+      setApprovalError('An approval reason is required (at least 4 characters)');
+      return;
+    }
+
     setShowApprovalConfirm(true);
     setCountdownSeconds(5);
   };
@@ -130,7 +161,7 @@ export default function DepositApprovalPage() {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ creditAmount: parseFloat(creditAmount) })
+          body: JSON.stringify({ creditAmount: parseFloat(creditAmount), reason: reason.trim() })
         }
       );
 
@@ -144,6 +175,7 @@ export default function DepositApprovalPage() {
       setViewMode('list');
       setSelectedDeposit(null);
       setCreditAmount('');
+      setReason('');
       setShowApprovalConfirm(false);
       setCountdownSeconds(5);
     } catch (err: any) {
@@ -262,7 +294,8 @@ export default function DepositApprovalPage() {
                       <div className="flex-shrink-0">
                         {deposit.screenshotUrl ? (
                           <img
-                            src={deposit.screenshotUrl}
+                            src={shotSrc(deposit)}
+                            onError={onShotError(deposit)}
                             alt="screenshot"
                             className="w-16 h-16 rounded-lg object-cover border border-sky-border"
                           />
@@ -385,13 +418,14 @@ export default function DepositApprovalPage() {
                 <div>
                   <h3 className="text-sm font-bold text-sky-text-secondary mb-2">Payment Screenshot</h3>
                   <a 
-                    href={selectedDeposit.screenshotUrl}
+                    href={uploadUrl(selectedDeposit.screenshotUrl)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="block"
                   >
                     <img
-                      src={selectedDeposit.screenshotUrl}
+                      src={shotSrc(selectedDeposit)}
+                      onError={onShotError(selectedDeposit)}
                       alt="payment screenshot"
                       className="w-full rounded-lg border border-sky-border hover:border-sky-green transition-colors cursor-pointer"
                       style={{ maxHeight: '400px', objectFit: 'contain' }}
@@ -500,7 +534,8 @@ export default function DepositApprovalPage() {
                     <div>
                       <div className="text-xs text-sky-text-muted mb-2">Payment Screenshot</div>
                       <img
-                        src={selectedDeposit.screenshotUrl}
+                        src={shotSrc(selectedDeposit)}
+                        onError={onShotError(selectedDeposit)}
                         alt="payment"
                         className="w-full rounded-lg border border-sky-border"
                         style={{ maxHeight: '300px', objectFit: 'contain' }}
@@ -523,6 +558,25 @@ export default function DepositApprovalPage() {
                     />
                     <p className="text-xs text-sky-blue mt-2">
                       Enter the amount to credit to user's wallet. Can be different from submitted amount.
+                    </p>
+                  </div>
+
+                  {/* Approval reason — MANDATORY. The API rejects any approval
+                      without one (H1), so collecting it here is what makes this
+                      button work at all. */}
+                  <div>
+                    <label className="block text-sm font-bold text-white mb-2">
+                      Approval Reason *
+                    </label>
+                    <textarea
+                      value={reason}
+                      onChange={(e) => setReason(e.target.value)}
+                      rows={3}
+                      placeholder="e.g., CBE transfer verified against the screenshot — amount matches"
+                      className="w-full px-4 py-3 bg-sky-dark border border-sky-border rounded-lg text-white focus:outline-none focus:border-sky-green resize-none"
+                    />
+                    <p className="text-xs text-sky-text-muted mt-2">
+                      Recorded in the audit log with your admin ID. Minimum 4 characters.
                     </p>
                   </div>
 
@@ -552,6 +606,9 @@ export default function DepositApprovalPage() {
                     <p className="text-sky-text-secondary mb-4">
                       You are about to credit <span className="font-bold text-white">{parseFloat(creditAmount).toFixed(2)} ETB</span> to <span className="font-bold text-white">{selectedDeposit.user.name}</span>
                     </p>
+                    {reason.trim() && (
+                      <p className="text-xs text-sky-text-muted">Reason: "{reason.trim()}"</p>
+                    )}
                   </div>
 
                   {/* Countdown */}

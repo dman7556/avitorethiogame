@@ -101,9 +101,17 @@ router.post('/', uploadScreenshot, async (req: AuthRequestWithFile, res: Respons
 
     finLog.deposit({ requestId: req.requestId, event: 'creating', userId: req.user!.userId, amount: amountDecimal ? String(amountDecimal) : 'UNVERIFIED', method: body.paymentMethod, fileName: req.file.originalname });
 
-    // Save screenshot to Cloudinary
+    // Save screenshot to Cloudinary (or local disk when Cloudinary is not
+    // configured — that mode is logged so evidence loss is never silent).
     const { url: screenshotUrl, publicId: screenshotPublicId } = await uploadService.saveFile(req.file);
-    finLog.deposit({ requestId: req.requestId, event: 'screenshot_saved', userId: req.user!.userId });
+    finLog.deposit({
+      requestId: req.requestId,
+      event: 'screenshot_saved',
+      userId: req.user!.userId,
+      storage: cloudinaryService.storageMode,
+      screenshotUrl,
+      publicId: screenshotPublicId,
+    });
 
     // Create deposit - amount can be null if user didn't provide it.
     // On upload failure nothing is persisted, so the asset is orphan-free.
@@ -119,6 +127,23 @@ router.post('/', uploadScreenshot, async (req: AuthRequestWithFile, res: Respons
         isAmountUnverified: !amountDecimal, // Flag to indicate amount needs manual verification
       });
     } catch (dbError: any) {
+      // The upload succeeded but the row was not written — the exact failure
+      // that leaves a user believing they deposited while admin sees nothing.
+      // Name the step and, for a missing column/table, say what to do about it.
+      finLog.depositError({
+        requestId: req.requestId,
+        event: 'db_insert_failed',
+        userId: req.user!.userId,
+        errorName: dbError?.name,
+        errorCode: dbError?.code,
+        errorMessage: dbError?.message,
+        hint:
+          dbError?.code === 'P2022'
+            ? 'A column used by this insert does not exist in the database — apply pending migrations / sync the schema.'
+            : dbError?.code === 'P2021'
+              ? 'The Deposit table does not exist in the database — apply pending migrations / sync the schema.'
+              : undefined,
+      });
       // Failure/recovery: don't leak orphaned Cloudinary assets when the DB
       // insert fails after the upload succeeded.
       try { await uploadService.deleteFile(screenshotPublicId); } catch { /* best-effort */ }

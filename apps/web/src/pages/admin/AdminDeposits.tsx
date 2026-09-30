@@ -56,6 +56,8 @@ export default function AdminDeposits() {
   const [showActionModal, setShowActionModal] = useState(false);
   const [actionType, setActionType] = useState<'approve' | 'reject' | null>(null);
   const [approvalAmount, setApprovalAmount] = useState<string>('');
+  // H1: the API rejects any approval without a recorded reason.
+  const [approvalReason, setApprovalReason] = useState('');
   const [rejectionReason, setRejectionReason] = useState('');
   const [processing, setProcessing] = useState(false);
 
@@ -112,6 +114,7 @@ export default function AdminDeposits() {
   const handleApproveClick = (deposit: Deposit) => {
     setSelectedDeposit(deposit);
     setApprovalAmount(deposit.submittedAmount.toString());
+    setApprovalReason('');
     setActionType('approve');
     setShowActionModal(true);
   };
@@ -135,13 +138,18 @@ export default function AdminDeposits() {
         return;
       }
 
+      if (approvalReason.trim().length < 4) {
+        setError('An approval reason is required (at least 4 characters)');
+        return;
+      }
+
       const res = await fetch(apiUrl(`/api/admin/deposits/${selectedDeposit.id}/approve`), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ creditAmount }),
+        body: JSON.stringify({ creditAmount, reason: approvalReason.trim() }),
       });
 
       const data = await res.json();
@@ -150,6 +158,7 @@ export default function AdminDeposits() {
       setShowActionModal(false);
       setSelectedDeposit(null);
       setApprovalAmount('');
+      setApprovalReason('');
       setActionType(null);
       fetchDeposits();
     } catch (err: any) {
@@ -626,6 +635,20 @@ export default function AdminDeposits() {
                         aria-label="Enter the amount to credit"
                       />
                     </div>
+                    <div>
+                      <label htmlFor="approval-reason" className="block text-sm font-medium text-white mb-2">
+                        Approval Reason *
+                      </label>
+                      <textarea
+                        id="approval-reason"
+                        value={approvalReason}
+                        onChange={(e) => setApprovalReason(e.target.value)}
+                        placeholder="Explain why this deposit is approved (e.g., payment verified)..."
+                        className="w-full px-4 py-2 bg-sky-input border border-sky-border rounded text-white focus:outline-none focus:border-sky-green transition-colors resize-none"
+                        rows={3}
+                        aria-label="Enter approval reason"
+                      />
+                    </div>
                     <div className="flex gap-3">
                       <button 
                         onClick={() => { setShowActionModal(false); setActionType(null); }}
@@ -635,7 +658,7 @@ export default function AdminDeposits() {
                       </button>
                       <button 
                         onClick={handleApprove}
-                        disabled={processing}
+                        disabled={processing || approvalReason.trim().length < 4}
                         className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white py-2 rounded disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2 font-medium"
                         aria-label="Confirm deposit approval"
                       >

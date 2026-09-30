@@ -12,6 +12,7 @@ import { realtimeBridge } from './analytics/realtime-bridge';
 import { metricsEngine } from './analytics/metrics-engine';
 import { eventPipeline } from './analytics/event-pipeline';
 import { requestObservability } from './middleware/observability';
+import { cloudinaryService, LOCAL_UPLOADS_ROOT } from './services/cloudinary.service';
 
 // Routes
 import authRoutes from './routes/auth.routes';
@@ -120,9 +121,12 @@ async function main() {
   // cwd), immutable+indexless, and dotfile-blind. express.static already
   // normalizes and rejects .. traversal outside the root — this only pins the
   // root and the RFC 6648 dotfile behavior.
+  // Rooted at the directory the uploader actually writes to (see
+  // cloudinary.service) rather than a second, independently-resolved
+  // __dirname path — write and read must not be able to disagree.
   app.use(
     '/uploads',
-    express.static(path.join(__dirname, '../uploads'), {
+    express.static(LOCAL_UPLOADS_ROOT, {
       index: false,
       dotfiles: 'ignore',
       immutable: true,
@@ -170,6 +174,19 @@ async function main() {
   try {
     await gameEngine.initialize();
     setupSocketHandlers(io, gameEngine);
+
+    // Where deposit evidence will be stored. Printed once at boot so a
+    // misconfigured host is obvious in the logs instead of showing up later as
+    // "the admin can't see the screenshot". Never logs the credentials.
+    const storageMode = cloudinaryService.storageMode;
+    console.log(`[STORAGE] Deposit screenshots → ${storageMode}`);
+    if (storageMode === 'local-disk') {
+      console.warn(
+        `[STORAGE] Cloudinary is NOT configured (CLOUDINARY_CLOUD_NAME / CLOUDINARY_API_KEY / ` +
+          `CLOUDINARY_API_SECRET). Uploads will be written to ${LOCAL_UPLOADS_ROOT} and served from ` +
+          `/uploads. On an ephemeral host like Render these files can disappear on redeploy.`
+      );
+    }
 
     // Start HTTP server first
     httpServer.listen(env.PORT, '0.0.0.0', async () => {

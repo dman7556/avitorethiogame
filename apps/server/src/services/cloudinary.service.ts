@@ -4,8 +4,23 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 const ALLOWED_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
-const MAX_SIZE = 50 * 1024 * 1024; // 50MB
-const LOCAL_UPLOAD_DIR = path.join(process.cwd(), 'uploads', 'deposits');
+const MAX_SIZE = 5 * 1024 * 1024; // 5MB — matches multer and upload.service
+
+/**
+ * Local fallback storage (used only when Cloudinary is not configured).
+ *
+ * Exported so the HTTP layer serves EXACTLY this directory. Previously
+ * index.ts served `path.join(__dirname, '../uploads')` while this module wrote
+ * to `process.cwd()/uploads/deposits` — two different resolutions of "uploads"
+ * that diverge as soon as the server is started from a different working
+ * directory (exactly what happens on a host whose start command runs the
+ * compiled entrypoint from the repo root). The write and the read must agree,
+ * or a stored screenshot can never be fetched.
+ */
+export const LOCAL_UPLOAD_DIR = path.join(process.cwd(), 'uploads', 'deposits');
+
+/** Parent of LOCAL_UPLOAD_DIR — the root the static /uploads route serves. */
+export const LOCAL_UPLOADS_ROOT = path.dirname(LOCAL_UPLOAD_DIR);
 
 // Configure Cloudinary (if credentials available)
 if (env.CLOUDINARY_CLOUD_NAME && env.CLOUDINARY_API_KEY && env.CLOUDINARY_API_SECRET) {
@@ -28,6 +43,16 @@ export class CloudinaryService {
   private useCloudinary = !!(env.CLOUDINARY_CLOUD_NAME && env.CLOUDINARY_API_KEY && env.CLOUDINARY_API_SECRET);
 
   /**
+   * Where new screenshots actually go. Logged at boot: a silent fall back to
+   * local disk is the most common reason evidence "disappears" in production
+   * (Render's filesystem is ephemeral and may not even be the served path).
+   * Never exposes credentials.
+   */
+  get storageMode(): 'cloudinary' | 'local-disk' {
+    return this.useCloudinary ? 'cloudinary' : 'local-disk';
+  }
+
+  /**
    * Upload a buffer to Cloudinary or local storage
    */
   async uploadScreenshot(
@@ -46,7 +71,7 @@ export class CloudinaryService {
     // Validate file size
     if (fileBuffer.length > MAX_SIZE) {
       throw new CloudinaryError(
-        'File size must be less than 10MB',
+        'File size must be less than 5MB',
         'INVALID_FILE_SIZE'
       );
     }
@@ -147,7 +172,16 @@ export class CloudinaryService {
       const localUrl = `/uploads/deposits/${filename}`;
       const public_id = filename.replace(/\.\w+$/, '');
 
-      console.log(`[LOCAL_STORAGE] Uploaded: ${filename} (${fileBuffer.length} bytes)`);
+      console.log(`[LOCAL_STORAGE] Uploaded: ${filename} (${fileBuffer.length} bytes) → ${localUrl}`);
+      if (env.NODE_ENV === 'production') {
+        // Loud on purpose: this is the failure mode where a deposit is stored
+        // but the admin can never see the evidence.
+        console.warn(
+          '[LOCAL_STORAGE] Running in production WITHOUT Cloudinary — the saved file lives on an ' +
+            'ephemeral filesystem and may 404 or vanish on the next deploy. ' +
+            'Set CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY and CLOUDINARY_API_SECRET on the backend host.'
+        );
+      }
 
       return {
         public_id,
