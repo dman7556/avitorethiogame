@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import { Minus, Plus, X, LogIn } from 'lucide-react';
 import { GAME_CONSTANTS, BetStatus } from '../shared/types';
 import { useGame, useTickMultiplier } from '../contexts/GameContext';
@@ -6,6 +6,10 @@ import { useNavigate } from 'react-router-dom';
 import { AudioEvents } from '../audio';
 import InsufficientBalanceModal from './InsufficientBalanceModal';
 import { useModalHistory } from '../hooks/useModalHistory';
+
+// Legibility floor for the auto-shrinking bet amount. A value long enough to
+// need less than this is pathological (the field clamps to MAX_BET on blur).
+const AMOUNT_FONT_MIN = 9;
 
 interface BetCardProps {
   bet: {
@@ -66,6 +70,75 @@ export default function BetCard({
   const formatAmount = (amount: number): string => {
     return amount % 1 === 0 ? amount.toString() : amount.toFixed(2).replace(/\.?0+$/, '');
   };
+
+  // ── Amount input: make the digits fit their box ──────────────────────
+  // The stepper's width comes from the flex layout, never from the text, so
+  // a long amount (1000, 50000 …) used to overflow the field and scroll the
+  // number out of sight. Rather than clip it, measure the box and shrink the
+  // type just far enough to keep every digit visible — never above the size
+  // the CSS asks for (--amount-font-max), so short amounts are untouched.
+  const amountInputRef = useRef<HTMLInputElement | null>(null);
+  const measureCtxRef = useRef<CanvasRenderingContext2D | null>(null);
+  const amountDisplayValue = betInputFocused
+    ? betInputValue
+    : formatAmount(isGuest ? guestAmount : bet.amount);
+
+  useLayoutEffect(() => {
+    const el = amountInputRef.current;
+    if (!el) return;
+
+    const fitToBox = () => {
+      const cs = getComputedStyle(el);
+      const maxSize =
+        parseFloat(cs.getPropertyValue('--amount-font-max')) || parseFloat(cs.fontSize) || 16;
+      const padding = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
+      const available = el.clientWidth - padding;
+      if (available <= 0) return;
+
+      const ctx =
+        measureCtxRef.current ??
+        (measureCtxRef.current = document.createElement('canvas').getContext('2d'));
+      if (!ctx) return;
+
+      // Measure the real string with the real font.
+      ctx.font = `${cs.fontStyle} ${cs.fontWeight} ${maxSize}px ${cs.fontFamily}`;
+      const needed = ctx.measureText(el.value || '0').width;
+
+      if (needed <= available) {
+        // Fits as-is: defer to the stylesheet.
+        el.style.removeProperty('font-size');
+        return;
+      }
+
+      const size = Math.max(
+        AMOUNT_FONT_MIN,
+        Math.floor(maxSize * (available / needed) * 10) / 10,
+      );
+      el.style.setProperty('font-size', `${size}px`, 'important');
+    };
+
+    fitToBox();
+    const observer = new ResizeObserver(fitToBox);
+    observer.observe(el);
+    window.addEventListener('resize', fitToBox);
+    window.addEventListener('orientationchange', fitToBox);
+
+    // The first measurement can run before the web font has swapped in, and
+    // the fallback font's metrics differ — which would leave the size fitted
+    // to the wrong font. Re-measure once the real font is ready.
+    const fonts = document.fonts;
+    let cancelled = false;
+    fonts?.ready?.then(() => { if (!cancelled) fitToBox(); }).catch(() => {});
+    fonts?.addEventListener?.('loadingdone', fitToBox);
+
+    return () => {
+      cancelled = true;
+      observer.disconnect();
+      window.removeEventListener('resize', fitToBox);
+      window.removeEventListener('orientationchange', fitToBox);
+      fonts?.removeEventListener?.('loadingdone', fitToBox);
+    };
+  }, [amountDisplayValue]);
 
   // Validation helpers for bet input
   const validateBetAmount = (value: number): { isValid: boolean; reason?: string } => {
@@ -344,9 +417,10 @@ export default function BetCard({
           <Minus size={15} />
         </button>
         <input
+          ref={amountInputRef}
           type="text"
           inputMode="decimal"
-          value={betInputFocused ? betInputValue : formatAmount(isGuest ? guestAmount : bet.amount)}
+          value={amountDisplayValue}
           onChange={handleBetInputChange}
           onFocus={() => setBetInputFocused(true)}
           onBlur={handleBetInputBlur}

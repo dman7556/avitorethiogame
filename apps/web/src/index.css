@@ -85,6 +85,14 @@ body {
   border-bottom: 1px solid var(--line);
   /* Notch/dynamic-island safe area in standalone (viewport-fit=cover) */
   padding-top: calc(10px + env(safe-area-inset-top, 0px));
+
+  /* Header design tokens — ONE accent colour and ONE type size for every
+     item in the bar (balance, ETB, icons, Deposit, promo pill) so the header
+     reads as a single system. The Aviator wordmark opts out on purpose: it is
+     the brand, and stays unique. Declared on the header element so the values
+     cascade to its children and never leak into modals. */
+  --header-accent: var(--green-bright);
+  --header-font-size: 13px;
 }
 
 .ref-logo {
@@ -115,22 +123,22 @@ body {
 
 .ref-balance-num {
   font-weight: 800;
-  font-size: 16px;
-  color: var(--green-bright);
+  font-size: var(--header-font-size);
+  color: var(--header-accent);
   letter-spacing: 0.2px;
 }
 
 .ref-balance-cur {
-  font-size: 12px;
-  font-weight: 600;
-  color: #ffffff;
+  font-size: var(--header-font-size);
+  font-weight: 800;
+  color: var(--header-accent);
   margin-left: 4px;
 }
 
 .ref-icon-btn {
   padding: 12px; /* #1: 20px icon + 24px padding = 44px tap target */
   border-radius: 10px;
-  color: #cfcfd6;
+  color: var(--header-accent);
   transition: background-color 0.15s ease, color 0.15s ease;
   background: transparent;
   border: none;
@@ -143,9 +151,16 @@ body {
 @media (hover: hover) {
   .ref-icon-btn:hover {
     background: var(--panel-2);
-    color: #ffffff;
+    color: var(--header-accent);
+    filter: brightness(1.12);
   }
 }
+
+/* Deposit — the header's money-in action. Present and labelled on EVERY
+   viewport: it never collapses to an icon-only button and is never hidden by
+   a breakpoint. Its visual style is NOT declared here — it shares the
+   "Header pills" rule further down with .ref-promo-btn ("Get 50 Birr"), so
+   the two are pixel-identical siblings and can never drift apart. */
 
 /* BetCard controls grid: side-by-side ≥340px; stacked below (a 320–339px
    side-by-side layout starves the amount input to <30px) */
@@ -298,7 +313,7 @@ body {
   height: 12px;
 }
 .game-fit .game-panel-sec .stepper-amount {
-  font-size: 12px;
+  --amount-font-max: 12px;
   min-height: 32px;
 }
 
@@ -358,7 +373,12 @@ body {
   height: 6px;
 }
 
-.game-fit .game-panel-sec input[type="text"] {
+/* Auto-mode inputs only: the 28px right padding reserves room for the
+   "ETB"/"x" suffix label. The bet amount stepper has no suffix and lives in
+   a fixed-height box, so it is excluded — otherwise this rule (which
+   out-specifies .stepper-amount) forced 11px type into a box the digits
+   could not fit in. */
+.game-fit .game-panel-sec input[type="text"]:not(.stepper-amount) {
   padding: 6px 8px;
   padding-right: 28px;
   font-size: 11px;
@@ -498,7 +518,7 @@ body {
     height: 12px;
   }
   .game-fit .game-panel-sec .stepper-amount {
-    font-size: 12px;
+    --amount-font-max: 12px;
     min-height: 32px;
   }
   
@@ -563,8 +583,9 @@ body {
     height: 6px;
   }
   
-  /* Auto mode inputs - more compact */
-  .game-fit .game-panel-sec input[type="text"] {
+  /* Auto mode inputs only — see the note on the base rule: the amount
+     stepper is excluded so it keeps its own fitted type size. */
+  .game-fit .game-panel-sec input[type="text"]:not(.stepper-amount) {
     padding: 6px 8px;
     padding-right: 28px;
     font-size: 11px;
@@ -709,7 +730,6 @@ body {
   .header-sound-toggle { display: none; }
 }
 @media (max-width: 360px) {
-  .ref-balance-num { font-size: 14px; }
   .ref-coin { width: 22px; height: 22px; }
 }
 
@@ -917,7 +937,12 @@ body {
   flex: 1;
   text-align: center;
   font-weight: 800;
-  font-size: 16px;
+  /* Ceiling for the amount's type size. BetCard measures the box and
+     shrinks below this only when the digits would otherwise be clipped,
+     so the number the user is typing is always fully visible. The
+     compact game panel lowers the ceiling to 12px. */
+  --amount-font-max: 16px;
+  font-size: var(--amount-font-max);
   color: #ffffff;
   font-family: 'JetBrains Mono', monospace;
   background: transparent;
@@ -1016,29 +1041,40 @@ body {
   font-family: 'JetBrains Mono', monospace;
 }
 
-/* Header promo pill — sibling of .ref-wallet-btn: same 44px height, 10px
-   radius, panel/line palette. Green text only (money accent, like
-   .ref-balance-num) so it stays part of the header's design language. */
-.ref-promo-btn {
+/* Header pills — sibling of .ref-wallet-btn: same 44px height, 10px radius,
+   panel/line palette. Green text only (money accent, like .ref-balance-num)
+   so they stay part of the header's design language.
+
+   .ref-promo-btn   — "Get 50 Birr" (guest sign-up CTA)
+   .ref-deposit-btn — "Deposit" (money-in action, every viewport)
+
+   Both live on ONE rule on purpose: Deposit is the sibling of the promo
+   pill, not a heavy filled primary CTA, so it must look like it belongs in
+   the header on web rather than like a borrowed/foreign button. Keeping
+   them in a single declaration is what stops the two from drifting apart. */
+.ref-promo-btn,
+.ref-deposit-btn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   min-height: 44px;
-  padding: 0 14px;
+  padding: 0 11px;
   border-radius: 10px;
   background: var(--panel);
   border: 1px solid var(--line-soft);
-  color: var(--green-bright);
+  color: var(--header-accent);
   font-weight: 800;
-  font-size: 13px;
+  font-size: var(--header-font-size);
   letter-spacing: 0.2px;
   white-space: nowrap;
   cursor: pointer;
+  flex-shrink: 0;
   transition: background-color 0.15s ease, border-color 0.15s ease;
 }
 
 @media (hover: hover) {
-  .ref-promo-btn:hover {
+  .ref-promo-btn:hover,
+  .ref-deposit-btn:hover {
     background: var(--panel-2);
     border-color: var(--green);
   }
@@ -1126,7 +1162,12 @@ body {
    Mobile
    ──────────────────────────────────────────────── */
 @media (max-width: 640px) {
-  input, textarea, select { font-size: 16px !important; }
+  /* 16px stops iOS zooming on focus. The viewport meta already sets
+     maximum-scale=1 (so that zoom cannot happen anyway) and the bet amount
+     lives in a fixed-height stepper whose own box decides how much room the
+     digits get, so it is exempt and sizes itself from --amount-font-max.
+     Forcing 16px on it made long amounts overflow and scroll out of sight. */
+  input:not(.stepper-amount), textarea, select { font-size: 16px !important; }
   input[type="number"]::-webkit-inner-spin-button,
   input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
@@ -1146,6 +1187,31 @@ button:active { opacity: 0.85; }
 .stepper-btn:active:not(:disabled) { transform: scale(0.92); }
 .quick-btn:active:not(:disabled) { transform: scale(0.96); background: var(--panel-3); }
 .ref-icon-btn:active { transform: scale(0.9); background: var(--panel-2); }
+
+/* ────────────────────────────────────────────────
+   Header width budget — narrowest phones (≤360px)
+   Deliberately the LAST word on header sizing (after every base rule,
+   including .ref-promo-btn and .ref-deposit-btn) so these overrides win
+   on source order alone.
+
+   The labelled Deposit action is the one control that must never collapse
+   to an icon or disappear on any device, so the width pressure is taken
+   off every other header element instead: logo, gaps, balance chip, promo
+   pill and Deposit button all tighten, but nothing loses its text. The
+   redundant "ETB" suffix is the sole casualty — every amount in this app
+   is ETB, and the balance number itself is untouched.
+   ──────────────────────────────────────────────── */
+@media (max-width: 360px) {
+  /* Shrink the header's type step, not one element at a time — every item
+     follows this token, so the bar stays internally consistent. */
+  .ref-header { --header-font-size: 12px; }
+  .ref-logo { font-size: 15px; }
+  .ref-header-actions { gap: 2px; }
+  .ref-balance-cur { display: none; }
+  .ref-wallet-btn { padding-left: 6px; padding-right: 6px; }
+  .ref-promo-btn,
+  .ref-deposit-btn { padding: 0 9px; gap: 4px; }
+}
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {

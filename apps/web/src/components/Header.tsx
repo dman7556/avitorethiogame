@@ -55,7 +55,7 @@ export default function Header({ onToggleChat }: HeaderProps) {
         </div>
 
         {/* Right side */}
-        <div className="flex items-center gap-1">
+        <div className="ref-header-actions flex items-center gap-1">
           {isGuest ? (
             <div className="flex items-center">
               {/* Guest-only promo: sign up to claim the welcome bonus —
@@ -108,7 +108,21 @@ export default function Header({ onToggleChat }: HeaderProps) {
 
           <span className="header-sep header-sound-toggle" />
 
-          {/* Menu button */}
+          {/* Deposit — the primary money action, sitting with the wallet/
+              promo cluster where the balance is, ahead of the menu. Always
+              present and always labelled on every viewport: never collapsed
+              to an icon-only button and never hidden by a breakpoint. Chat
+              (the shortcut it replaced) stays reachable from the menu. */}
+          <button
+            onClick={() => requireAuth(() => setShowDeposit(true))}
+            className="ref-deposit-btn"
+            aria-label="Deposit"
+          >
+            <ArrowDownToLine size={15} />
+            <span>Deposit</span>
+          </button>
+
+          {/* Menu button — far right, the conventional header position */}
           <div className="relative">
             <button
               onClick={() => {
@@ -230,19 +244,19 @@ export default function Header({ onToggleChat }: HeaderProps) {
                     </>
                   )}
 
-                  {/* Chat link for mobile (since chat button is hidden) */}
-                  {isAuthenticated && (
-                    <button
-                      onClick={() => {
-                        requireAuth(onToggleChat);
-                        setShowMenu(false);
-                      }}
-                      className="w-full px-3 py-2.5 text-left text-sm text-sky-text-secondary hover:bg-sky-card-hover flex items-center gap-2 min-h-[44px] transition-colors sm:hidden"
-                    >
-                      <MessageCircle size={14} />
-                      Chat
-                    </button>
-                  )}
+                  {/* Chat — the only chat entry point now that the header
+                      shortcut is a Deposit action, so it is visible at every
+                      breakpoint (was sm:hidden) and for guests too. */}
+                  <button
+                    onClick={() => {
+                      requireAuth(onToggleChat);
+                      setShowMenu(false);
+                    }}
+                    className="w-full px-3 py-2.5 text-left text-sm text-sky-text-secondary hover:bg-sky-card-hover flex items-center gap-2 min-h-[44px] transition-colors"
+                  >
+                    <MessageCircle size={14} />
+                    Chat
+                  </button>
 
                   <button
                   onClick={() => {
@@ -285,14 +299,6 @@ export default function Header({ onToggleChat }: HeaderProps) {
               </>
             )}
           </div>
-          {/* Chat button — rightmost (always visible per reference) */}
-          <button
-            onClick={() => requireAuth(onToggleChat)}
-            className="ref-icon-btn"
-            aria-label="Toggle chat"
-          >
-            <MessageCircle size={20} />
-          </button>
         </div>
       </div>
     </header>
