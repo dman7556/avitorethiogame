@@ -78,6 +78,92 @@ body {
 }
 
 /* ────────────────────────────────────────────────
+   Primary button — the app's ONE shared call-to-action style.
+   SignIn / Register / Submit Deposit / chat Send / every modal confirm use
+   `.btn-primary`. It previously had NO definition anywhere, so those buttons
+   fell back to the browser's native look and read as flat text on the dark
+   theme. Defined in @layer components so per-usage Tailwind utilities
+   (w-full, py-3, text-lg, …) still win the cascade. Visual language matches
+   the game's green Bet button (.action-bet): same gradient family, radius
+   and press behavior.
+   ──────────────────────────────────────────────── */
+@layer components {
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(180deg, var(--green-bright) 0%, var(--green) 100%);
+    color: #ffffff;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.22),
+      0 2px 10px rgba(0, 0, 0, 0.35);
+    cursor: pointer;
+    user-select: none;
+    transition: filter 0.15s ease, transform 0.1s ease, box-shadow 0.2s ease;
+  }
+
+  @media (hover: hover) {
+    .btn-primary:not(:disabled):hover {
+      filter: brightness(1.08);
+    }
+  }
+
+  .btn-primary:not(:disabled):active {
+    transform: scale(0.985);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.22),
+      0 1px 5px rgba(0, 0, 0, 0.35);
+  }
+
+  .btn-primary:disabled {
+    cursor: not-allowed;
+  }
+
+  /* Quiet sibling of .btn-primary (same shape/height) — Cancel-style actions,
+     e.g. the Insufficient Balance modal's Cancel / Deposit pair. */
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 12px 20px;
+    border: 1px solid var(--line-soft);
+    border-radius: 12px;
+    background: var(--panel-2);
+    color: #ffffff;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+  }
+
+  @media (hover: hover) {
+    .btn-secondary:not(:disabled):hover {
+      background: var(--panel-3);
+      border-color: #4a4a55;
+    }
+  }
+
+  .btn-secondary:not(:disabled):active {
+    transform: scale(0.985);
+  }
+
+  .btn-secondary:disabled {
+    cursor: not-allowed;
+  }
+}
+
+/* ────────────────────────────────────────────────
    Header
    ──────────────────────────────────────────────── */
 .ref-header {

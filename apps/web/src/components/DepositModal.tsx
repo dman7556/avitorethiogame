@@ -308,10 +308,10 @@ export default function DepositModal({ isOpen, onClose, balance }: DepositModalP
               <button
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
-                className="w-full border-2 border-dashed border-sky-border rounded-xl p-6 text-center hover:border-sky-border-light transition-colors"
+                className="w-full border-2 border-dashed border-sky-border-light bg-sky-dark/60 rounded-xl p-6 text-center hover:border-sky-green hover:bg-sky-green/5 active:scale-[0.99] transition-all cursor-pointer"
               >
-                <Upload size={24} className="text-sky-text-muted mx-auto mb-2" />
-                <div className="text-sm text-sky-text-secondary">
+                <Upload size={26} className="text-sky-green mx-auto mb-2" />
+                <div className="text-sm font-semibold text-white">
                   Tap to upload screenshot
                 </div>
                 <div className="text-xs text-sky-text-muted mt-1">
