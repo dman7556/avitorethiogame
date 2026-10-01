@@ -108,19 +108,34 @@ export default function Header({ onToggleChat }: HeaderProps) {
 
           <span className="header-sep header-sound-toggle" />
 
-          {/* Deposit — the primary money action, sitting with the wallet/
-              promo cluster where the balance is, ahead of the menu. Always
-              present and always labelled on every viewport: never collapsed
-              to an icon-only button and never hidden by a breakpoint. Chat
-              (the shortcut it replaced) stays reachable from the menu. */}
+          {/* Deposit + Withdraw — the money-in / money-out pair, sitting
+              with the wallet/promo cluster where the balance is, ahead of
+              the menu. Both are always present and always labelled on every
+              viewport: never collapsed to an icon-only button and never
+              hidden by a breakpoint. Chat (whose shortcut Deposit replaced)
+              stays reachable from the menu. Withdraw opens the same
+              WithdrawalModal the dashboard's Withdraw button uses. */}
           <button
             onClick={() => requireAuth(() => setShowDeposit(true))}
             className="ref-deposit-btn"
             aria-label="Deposit"
           >
-            <ArrowDownToLine size={15} />
-            <span>Deposit</span>
+            <ArrowDownToLine size={15} className="money-ico" />
+            <span className="money-label">Deposit</span>
           </button>
+          {/* Withdraw stays authenticated-only, like the menu's Withdraw
+              item: guests have no wallet to withdraw from, and the extra
+              labelled pill would overflow the 360px guest header. */}
+          {!isGuest && (
+            <button
+              onClick={() => requireAuth(() => setShowWithdraw(true))}
+              className="ref-withdraw-btn"
+              aria-label="Withdraw"
+            >
+              <ArrowUpFromLine size={15} className="money-ico" />
+              <span className="money-label">Withdraw</span>
+            </button>
+          )}
 
           {/* Menu button — far right, the conventional header position */}
           <div className="relative">
@@ -131,7 +146,7 @@ export default function Header({ onToggleChat }: HeaderProps) {
               if (showMenu) AudioEvents.onMenuClose();
               else AudioEvents.onMenuOpen();
               }}
-              className="ref-icon-btn"
+              className="ref-icon-btn ref-menu-btn"
               aria-label="Menu"
             >
               <Menu size={22} />

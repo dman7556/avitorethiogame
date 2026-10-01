@@ -44,9 +44,9 @@ body {
 ::-webkit-scrollbar-thumb:hover { background: #3a3a41; }
 
 .ref-wallet-btn {
-  padding: 10px 8px; /* #7: wallet pill reaches 44px tap height */
-  min-height: 44px;
-  border-radius: 10px;
+  padding: 8px 7px; /* header scaled one step down (design update) */
+  min-height: 40px;
+  border-radius: 9px;
 }
 
 *:focus-visible {
@@ -178,13 +178,13 @@ body {
      the brand, and stays unique. Declared on the header element so the values
      cascade to its children and never leak into modals. */
   --header-accent: var(--green-bright);
-  --header-font-size: 13px;
+  --header-font-size: 12px;
 }
 
 .ref-logo {
   font-family: 'Inter', sans-serif;
   font-weight: 800;
-  font-size: 21px;
+  font-size: 18px;
   letter-spacing: -0.5px;
   color: #e50539;
   font-style: italic;
@@ -196,8 +196,8 @@ body {
 }
 
 .ref-coin {
-  width: 26px;
-  height: 26px;
+  width: 22px;
+  height: 22px;
   border-radius: 9999px;
   background: radial-gradient(circle at 32% 30%, #ffd76a 0%, #f7b733 45%, #e09b1a 100%);
   box-shadow: inset 0 -2px 4px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.12);
@@ -222,8 +222,8 @@ body {
 }
 
 .ref-icon-btn {
-  padding: 12px; /* #1: 20px icon + 24px padding = 44px tap target */
-  border-radius: 10px;
+  padding: 10px; /* header scaled one step down: 20px icon + 20px padding = 40px */
+  border-radius: 9px;
   color: var(--header-accent);
   transition: background-color 0.15s ease, color 0.15s ease;
   background: transparent;
@@ -239,6 +239,18 @@ body {
     background: var(--panel-2);
     color: var(--header-accent);
     filter: brightness(1.12);
+  }
+}
+
+/* Menu (three-dot) button — neutral gray like Withdraw (design update):
+   it is navigation, not money, so it opts out of the green accent. */
+.ref-menu-btn {
+  color: var(--text-dim);
+}
+@media (hover: hover) {
+  .ref-menu-btn:hover {
+    color: var(--text-dim);
+    filter: none;
   }
 }
 
@@ -816,7 +828,7 @@ body {
   .header-sound-toggle { display: none; }
 }
 @media (max-width: 360px) {
-  .ref-coin { width: 22px; height: 22px; }
+  .ref-coin { width: 20px; height: 20px; }
 }
 
 /* ────────────────────────────────────────────────
@@ -1144,24 +1156,28 @@ body {
 }
 
 /* Header pills — sibling of .ref-wallet-btn: same 44px height, 10px radius,
-   panel/line palette. Green text only (money accent, like .ref-balance-num)
-   so they stay part of the header's design language.
+   panel/line palette. Money accents only (like .ref-balance-num) so they
+   stay part of the header's design language: green (money-in) for Deposit,
+   orange (money-out, the reserved-funds accent used app-wide) for Withdraw.
 
-   .ref-promo-btn   — "Get 50 Birr" (guest sign-up CTA)
-   .ref-deposit-btn — "Deposit" (money-in action, every viewport)
+   .ref-promo-btn    — "Get 50 Birr" (guest sign-up CTA)
+   .ref-deposit-btn  — "Deposit" (money-in action, every viewport)
+   .ref-withdraw-btn — "Withdraw" (money-out action, every viewport)
 
-   Both live on ONE rule on purpose: Deposit is the sibling of the promo
-   pill, not a heavy filled primary CTA, so it must look like it belongs in
-   the header on web rather than like a borrowed/foreign button. Keeping
-   them in a single declaration is what stops the two from drifting apart. */
+   All three live on ONE rule on purpose: Deposit and Withdraw are siblings
+   of the promo pill, not heavy filled primary CTAs, so they must look like
+   they belong in the header on web rather than like borrowed/foreign
+   buttons. Keeping them in a single declaration is what stops the three
+   from drifting apart. */
 .ref-promo-btn,
-.ref-deposit-btn {
+.ref-deposit-btn,
+.ref-withdraw-btn {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  min-height: 44px;
-  padding: 0 11px;
-  border-radius: 10px;
+  gap: 4px;
+  min-height: 40px;
+  padding: 0 9px;
+  border-radius: 9px;
   background: var(--panel);
   border: 1px solid var(--line-soft);
   color: var(--header-accent);
@@ -1176,9 +1192,26 @@ body {
 
 @media (hover: hover) {
   .ref-promo-btn:hover,
-  .ref-deposit-btn:hover {
+  .ref-deposit-btn:hover,
+  .ref-withdraw-btn:hover {
     background: var(--panel-2);
     border-color: var(--green);
+  }
+}
+
+/* The money pair: Deposit keeps the green money accent; Withdraw sits in
+   neutral gray per design update (the ↑ icon still marks it as money-out).
+   Same pressed feedback as the other header controls; hover tints the
+   border instead of the accent. */
+.ref-withdraw-btn {
+  color: var(--text-dim);
+}
+.ref-withdraw-btn:active {
+  transform: scale(0.97);
+}
+@media (hover: hover) {
+  .ref-withdraw-btn:hover {
+    border-color: #4a4a55;
   }
 }
 
@@ -1306,13 +1339,39 @@ button:active { opacity: 0.85; }
 @media (max-width: 360px) {
   /* Shrink the header's type step, not one element at a time — every item
      follows this token, so the bar stays internally consistent. */
-  .ref-header { --header-font-size: 12px; }
-  .ref-logo { font-size: 15px; }
+  .ref-header { --header-font-size: 11px; }
+  .ref-logo { font-size: 14px; }
   .ref-header-actions { gap: 2px; }
   .ref-balance-cur { display: none; }
-  .ref-wallet-btn { padding-left: 6px; padding-right: 6px; }
+  .ref-wallet-btn { padding-left: 5px; padding-right: 5px; }
   .ref-promo-btn,
-  .ref-deposit-btn { padding: 0 9px; gap: 4px; }
+  .ref-deposit-btn,
+  .ref-withdraw-btn { padding: 0 7px; gap: 3px; }
+}
+
+/* ────────────────────────────────────────────────
+   Money pair (Deposit + Withdraw) width ladder — the labelled pills are
+   the widest items in the bar, so the REDUNDANT affordances yield first,
+   never the 44px tap targets and (down to 320px) never both labels.
+   Sound already hides ≤390 (redundant, available in the menu); icons of
+   the pair yield next; below 360 labels yield and the pills stay as
+   icon-only 44px taps, still color-distinguished. Full labels live
+   with the rest in the menu. Uses fixed heights so hiding the text
+   cannot shrink the tap target below the 44px standard.
+   ──────────────────────────────────────────────── */
+.money-label { display: inline; }
+@media (max-width: 475px) {
+  .money-ico { display: none; }
+  .ref-deposit-btn,
+  .ref-withdraw-btn { justify-content: center; min-width: 40px; }
+}
+@media (max-width: 359px) {
+  .money-label { display: none; }
+  /* Labels are gone, so the icons come back — an empty pill would be
+     unidentifiable; icon + color still separates the pair. */
+  .money-ico { display: inline; }
+  .ref-deposit-btn,
+  .ref-withdraw-btn { min-width: 40px; height: 40px; padding: 0; gap: 0; }
 }
 
 /* Reduced motion */
