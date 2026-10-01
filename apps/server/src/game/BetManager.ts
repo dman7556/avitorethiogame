@@ -125,22 +125,10 @@ export class BetManager {
       }
     }
 
-    // Check user wallet AVAILABLE balance (balance - reserved).
-    // Reserved funds belong to pending withdrawals and cannot be bet.
-    const wallet = await prisma.wallet.findUnique({
-      where: { userId },
-    });
-
-    if (!wallet) {
-      throw new BetError('Wallet not found', 'WALLET_NOT_FOUND');
-    }
-
-    const availableBalance = new Decimal(wallet.balance).sub(new Decimal(wallet.reserved));
-    finLog.bet({ event: 'wallet_snapshot', userId, available: String(availableBalance) });
-
-    if (money.lt(availableBalance, amount)) {
-      throw new BetError('Insufficient balance', 'INSUFFICIENT_BALANCE');
-    }
+    // Hot-path: the pre-transaction wallet read was removed. The guarded
+    // transaction below re-reads the wallet for the authoritative figure and
+    // enforces the same INSUFFICIENT_BALANCE / WALLET_NOT_FOUND errors, so
+    // this read was a redundant sequential query on the normal success path.
 
     // Create bet and deduct balance atomically.
     // The wallet update is guarded: balance must still cover reserved + amount,
@@ -252,10 +240,12 @@ export class BetManager {
     // Suspended accounts cannot cash out
     await this.assertUserActive(userId);
 
-    // Find the bet
+    // Find the bet (scalar fields only — the round join was a SECOND
+    // sequential query here (Prisma includes never use SQL joins); the round
+    // is read inside the transaction below, which is both the authoritative
+    // C1 phase guard and the source for the multiplier computation.
     const bet = await prisma.bet.findUnique({
       where: { id: betId },
-      include: { round: true },
     });
 
     if (!bet) {
@@ -273,39 +263,6 @@ export class BetManager {
       throw new BetError('Bet cannot be cashed out', 'INVALID_BET_STATE');
     }
 
-    // Verify round is in FLYING phase
-    if (bet.round.phase !== GamePhase.FLYING) {
-      throw new BetError('Round is not in progress', 'ROUND_NOT_FLYING');
-    }
-
-    // ── SERVER-AUTHORITATIVE MULTIPLIER VALIDATION ──
-    // Never trust the requested multiplier. Recompute it from the round's
-    // own start timestamp (server clock) and reject requests that disagree
-    // beyond a small network/jitter tolerance, or that claim a multiplier
-    // at/above the secret crash point (a post-crash cashout attempt).
-    if (!bet.round.startedAt) {
-      throw new BetError('Round is not in progress', 'ROUND_NOT_FLYING');
-    }
-    const elapsedMs = Date.now() - new Date(bet.round.startedAt).getTime();
-    const serverMultiplier = multiplierEngine.calculateMultiplier(elapsedMs);
-    const requested = Math.max(1.0, Math.floor(currentMultiplier * 100) / 100);
-    const TOLERANCE = 0.05; // one tick + network jitter
-    if (requested > serverMultiplier + TOLERANCE) {
-      finLog.bet({ event: 'cashout_rejected_multiplier', userId, betId, requested, server: serverMultiplier });
-      throw new BetError('Invalid cashout multiplier', 'INVALID_MULTIPLIER');
-    }
-    if (bet.round.crashPoint && serverMultiplier >= Number(bet.round.crashPoint)) {
-      // Round has effectively crashed between the tick and this request.
-      throw new BetError('Round has crashed', 'ROUND_CRASHED');
-    }
-
-    // Settle at the SERVER multiplier (the smaller of the two) — the client
-    // never gains an edge from timing.
-    const multiplier = Math.max(1.0, Math.floor(Math.min(requested, serverMultiplier) * 100) / 100);
-    const payout = Math.round(Number(bet.amount) * multiplier * 100) / 100;
-
-    finLog.bet({ event: 'cashout_approved', userId, betId, multiplier, payout: String(payout) });
-
     // Process cashout atomically. The bet status change is a GUARDED
     // conditional update (not a blind update): it only matches a bet still
     // in PLACED/ACTIVE, so two concurrent cashout requests can never both
@@ -322,6 +279,38 @@ export class BetManager {
         throw new BetError('Round is not in progress', 'ROUND_NOT_FLYING');
       }
 
+      // ── SERVER-AUTHORITATIVE MULTIPLIER VALIDATION ──
+      // Never trust the requested multiplier. Recompute it from the round's
+      // own start timestamp (server clock) and reject requests that disagree
+      // beyond a small network/jitter tolerance, or that claim a multiplier
+      // at/above the secret crash point (a post-crash cashout attempt).
+      // Runs against the in-transaction round read, so it is exactly as
+      // race-safe as the phase guard above — and the settle value is still
+      // min(requested-at-handler-entry, server recompute), i.e. the value at
+      // the moment the request arrived, never later.
+      if (!txRound.startedAt) {
+        throw new BetError('Round is not in progress', 'ROUND_NOT_FLYING');
+      }
+      const elapsedMs = Date.now() - new Date(txRound.startedAt).getTime();
+      const serverMultiplier = multiplierEngine.calculateMultiplier(elapsedMs);
+      const requested = Math.max(1.0, Math.floor(currentMultiplier * 100) / 100);
+      const TOLERANCE = 0.05; // one tick + network jitter
+      if (requested > serverMultiplier + TOLERANCE) {
+        finLog.bet({ event: 'cashout_rejected_multiplier', userId, betId, requested, server: serverMultiplier });
+        throw new BetError('Invalid cashout multiplier', 'INVALID_MULTIPLIER');
+      }
+      if (txRound.crashPoint && serverMultiplier >= Number(txRound.crashPoint)) {
+        // Round has effectively crashed between the tick and this request.
+        throw new BetError('Round has crashed', 'ROUND_CRASHED');
+      }
+
+      // Settle at the SERVER multiplier (the smaller of the two) — the client
+      // never gains an edge from timing.
+      const multiplier = Math.max(1.0, Math.floor(Math.min(requested, serverMultiplier) * 100) / 100);
+      const payout = Math.round(Number(bet.amount) * multiplier * 100) / 100;
+
+      finLog.bet({ event: 'cashout_approved', userId, betId, multiplier, payout: String(payout) });
+
       // Guarded settlement: only succeeds if the bet is still cashable.
       const settled = await tx.bet.updateMany({
         where: { id: betId, status: { in: [BetStatus.PLACED, BetStatus.ACTIVE] } },
@@ -337,34 +326,40 @@ export class BetManager {
         // never pay twice.
         throw new BetError('Already cashed out', 'ALREADY_SETTLED');
       }
-      const updatedBet = await tx.bet.findUniqueOrThrow({ where: { id: betId } });
+      // Same row the guarded update just settled, rebuilt in memory — a
+      // findUniqueOrThrow here used to add one more sequential query inside
+      // the transaction on the hot path. Nothing downstream consumes
+      // result.bet (the socket handler reads multiplier/payout/balance).
+      const settledAt = new Date();
+      const updatedBet = {
+        ...bet,
+        status: BetStatus.CASHED_OUT,
+        cashoutMultiplier: new Decimal(multiplier),
+        payout: new Decimal(payout),
+        cashedOutAt: settledAt,
+      };
 
-      // Credit wallet
-      const wallet = await tx.wallet.findUnique({
+      // Credit the wallet with a SINGLE atomic statement: the database
+      // performs the add (no read-modify-write window, exactly-once under the
+      // transaction). The pre-credit balance the ledger row needs is derived
+      // exactly (after − payout). The old read-then-update pair cost one
+      // extra sequential query in the transaction.
+      const credited = await tx.wallet.update({
         where: { userId },
+        data: { balance: { increment: new Decimal(payout) } },
       });
-
-      if (!wallet) {
-        throw new BetError('Wallet not found', 'WALLET_NOT_FOUND');
-      }
-
-      const currentBalance = Number(wallet.balance);
-      const newBalance = new Decimal(currentBalance).add(new Decimal(payout));
-
-      await tx.wallet.update({
-        where: { userId },
-        data: { balance: newBalance },
-      });
+      const balanceAfter = new Decimal(credited.balance);
+      const balanceBefore = balanceAfter.sub(new Decimal(payout));
 
       // Record transaction
       await tx.walletTransaction.create({
         data: {
-          walletId: wallet.id,
+          walletId: credited.id,
           type: 'WIN',
           amount: new Decimal(payout),
-          balanceBefore: new Decimal(currentBalance),
-          balanceAfter: newBalance,
-          description: `Cashout at ${multiplier}x on round ${bet.round.roundNumber}`,
+          balanceBefore,
+          balanceAfter,
+          description: `Cashout at ${multiplier}x on round ${txRound.roundNumber}`,
           referenceId: betId,
         },
       });
@@ -373,7 +368,8 @@ export class BetManager {
         bet: updatedBet,
         payout,
         multiplier,
-        balance: Number(newBalance),
+        roundNumber: txRound.roundNumber,
+        balance: Number(balanceAfter),
       };
     });
 
@@ -385,16 +381,16 @@ export class BetManager {
       userId,
       roundId: bet.roundId,
       betId,
-      amount: String(payout),
-      metadata: { multiplier, roundNumber: bet.round.roundNumber },
+      amount: String(result.payout),
+      metadata: { multiplier: result.multiplier, roundNumber: result.roundNumber },
     });
     trackEvent({
       eventType: 'PAYOUT_CREATED',
       userId,
       roundId: bet.roundId,
       betId,
-      amount: String(payout),
-      metadata: { multiplier },
+      amount: String(result.payout),
+      metadata: { multiplier: result.multiplier },
     });
     void riskEngine.recordUserAction(userId, 'CASHOUT').catch(() => undefined);
 

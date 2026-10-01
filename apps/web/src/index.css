@@ -1114,6 +1114,22 @@ body {
   background: linear-gradient(180deg, #f04550 0%, #d32835 100%);
 }
 
+/* Instant tap feedback: the pressed state is applied by the BROWSER at
+   pointerdown — the same frame as the tap, before any JS handler, React
+   render, or network round-trip. Filter/transform only, so it rides the
+   existing fast transitions and never triggers layout or repaint of the
+   whole card. Applies to BET, CASH OUT and CANCEL (all .action-btn). */
+.action-btn:not(:disabled):active {
+  filter: brightness(0.85) saturate(1.05);
+  transform: scale(0.97);
+}
+
+/* Disabled action buttons look inert instead of merely unresponsive */
+.action-btn:disabled {
+  opacity: 0.75;
+  cursor: default;
+}
+
 .action-btn .btn-line1 {
   font-size: 20px;
   letter-spacing: 0.5px;

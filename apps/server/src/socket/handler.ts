@@ -1,6 +1,5 @@
 import { Server as SocketIOServer, Socket } from 'socket.io';
 import { authService } from '../services/auth.service';
-import { walletService } from '../services/wallet.service';
 import { betManager, BetError } from '../game/BetManager';
 import { chatService, ChatError } from '../services/chat.service';
 import { GameEngine } from '../game/GameEngine';
@@ -19,6 +18,7 @@ import {
   tryAdmitGuest,
 } from '../lib/guest-connection-tracker';
 import { money } from '../services/money.helper';
+import { finLog } from '../lib/logger';
 import {
   betSyncService,
   setBetSyncEngine,
@@ -311,6 +311,10 @@ export function setupSocketHandlers(
       console.log(`[Socket] Placing bet for user: ${socketData.userId}, Amount: ${data.amount}, Slot: ${data.slot}`);
 
       try {
+        // Hot-path latency observability: measure the pre-ack segments so
+        // regressions are visible in prod. The log is emitted AFTER the ack
+        // so instrumentation itself can never delay the user's response.
+        const t0 = Date.now();
         const roundId = gameEngine.getRoundId();
         console.log(`[Socket] Current round ID: ${roundId}`);
         
@@ -341,10 +345,15 @@ export function setupSocketHandlers(
           data.autoCashout
         );
 
+        const tPlaced = Date.now();
+
         console.log(`[Socket] Bet placed successfully:`, result);
 
-        // Get updated wallet balance
-        const wallet = await walletService.getBalance(socketData.userId);
+        // Hot-path: no extra DB read before the ack. placeBet already returns
+        // the authoritative post-commit balance from inside its transaction —
+        // a separate getBalance() here used to add one more sequential query
+        // between the settlement and the user's confirmation.
+        const tBalance = tPlaced;
 
         callback({
           success: true,
@@ -356,9 +365,18 @@ export function setupSocketHandlers(
           },
         });
 
-        // Notify user of wallet update
+        finLog.bet({
+          event: 'place_hot',
+          userId: socketData.userId,
+          roundId,
+          placeMs: tPlaced - t0,
+          preAckMs: tBalance - t0,
+        });
+
+        // Notify user of wallet update (post-ack, using the balance that the
+        // committed transaction itself produced)
         socket.emit('wallet:updated', {
-          balance: wallet.balance,
+          balance: result.balance,
           transaction: null,
         });
 
@@ -457,6 +475,9 @@ export function setupSocketHandlers(
       }
 
       try {
+        // Hot-path latency observability (see bet:place note above).
+        const t0 = Date.now();
+
         // Get server-authoritative multiplier
         const currentMultiplier = gameEngine.getCurrentMultiplier();
         const roundId = gameEngine.getRoundId();
@@ -471,11 +492,20 @@ export function setupSocketHandlers(
           data.betId,
           currentMultiplier
         );
+        const tSettled = Date.now();
 
         callback({
           success: true,
           multiplier: result.multiplier,
           payout: result.payout,
+        });
+
+        finLog.bet({
+          event: 'cashout_hot',
+          userId: socketData.userId,
+          roundId,
+          settleMs: tSettled - t0,
+          preAckMs: tSettled - t0,
         });
 
         // Notify user of wallet update
