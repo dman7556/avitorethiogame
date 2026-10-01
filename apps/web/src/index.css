@@ -184,7 +184,7 @@ body {
 .ref-logo {
   font-family: 'Inter', sans-serif;
   font-weight: 800;
-  font-size: 18px;
+  font-size: 21px;
   letter-spacing: -0.5px;
   color: #e50539;
   font-style: italic;
@@ -1366,13 +1366,16 @@ button:active { opacity: 0.85; }
 .ref-deposit-btn svg,
 .ref-withdraw-btn svg { width: 15px; height: 15px; }
 @media (max-width: 511px) {
-  .ref-header { --header-font-size: 10.5px; }
-  .ref-logo { font-size: 13px; }
+  /* The wordmark keeps its presence on phones too — the money pair gives
+     back the width: smaller pills and a deliberate gap between them. */
+  .ref-header { --header-font-size: 10px; }
+  .ref-logo { font-size: 16px; }
   .ref-header-actions { gap: 1px; }
   .ref-deposit-btn svg,
-  .ref-withdraw-btn svg { width: 12px; height: 12px; }
+  .ref-withdraw-btn svg { width: 11px; height: 11px; }
   .ref-deposit-btn,
-  .ref-withdraw-btn { padding: 0 5px; gap: 2px; }
+  .ref-withdraw-btn { padding: 0 4px; gap: 2px; }
+  .ref-deposit-btn { margin-right: 5px; } /* visible space between the pair */
   .ref-wallet-btn { padding-left: 3px; padding-right: 3px; gap: 1px; }
   .ref-coin { width: 16px; height: 16px; }
   .ref-coin svg { width: 9px; height: 9px; }
