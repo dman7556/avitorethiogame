@@ -1350,28 +1350,38 @@ button:active { opacity: 0.85; }
 }
 
 /* ────────────────────────────────────────────────
-   Money pair (Deposit + Withdraw) width ladder — the labelled pills are
-   the widest items in the bar, so the REDUNDANT affordances yield first,
-   never the 44px tap targets and (down to 320px) never both labels.
-   Sound already hides ≤390 (redundant, available in the menu); icons of
-   the pair yield next; below 360 labels yield and the pills stay as
-   icon-only 44px taps, still color-distinguished. Full labels live
-   with the rest in the menu. Uses fixed heights so hiding the text
-   cannot shrink the tap target below the 44px standard.
+   Money pair (Deposit + Withdraw) width ladder — phones get the SAME
+   icon+label look as desktop: icons never hide, because a text-only pill
+   reads as a different design. Tight tiers shrink spacing instead:
+   ≥512px  — desktop metrics (icon 15, padding 9)
+   ≤511px  — tight icon+label (icon 12, padding 5, font 10.5, logo 13,
+             tighter wallet/coin) — fits 320-480px phones, incl. 360/375/
+             390/414px; measured menu-right margin ≥12px on each
+   ≤359px  — labels yield, pills stay icon-only 40px taps, still
+             color-distinguished; full labels live in the menu
+   Sound already hides ≤390 (redundant, available in the menu). Fixed
+   heights below 360 so hiding the text cannot shrink the tap target.
    ──────────────────────────────────────────────── */
 .money-label { display: inline; }
-@media (max-width: 475px) {
-  .money-ico { display: none; }
+.ref-deposit-btn svg,
+.ref-withdraw-btn svg { width: 15px; height: 15px; }
+@media (max-width: 511px) {
+  .ref-header { --header-font-size: 10.5px; }
+  .ref-logo { font-size: 13px; }
+  .ref-header-actions { gap: 1px; }
+  .ref-deposit-btn svg,
+  .ref-withdraw-btn svg { width: 12px; height: 12px; }
   .ref-deposit-btn,
-  .ref-withdraw-btn { justify-content: center; min-width: 40px; }
+  .ref-withdraw-btn { padding: 0 5px; gap: 2px; }
+  .ref-wallet-btn { padding-left: 3px; padding-right: 3px; gap: 1px; }
+  .ref-coin { width: 16px; height: 16px; }
+  .ref-coin svg { width: 9px; height: 9px; }
+  .ref-icon-btn { padding: 10px; }
 }
 @media (max-width: 359px) {
   .money-label { display: none; }
-  /* Labels are gone, so the icons come back — an empty pill would be
-     unidentifiable; icon + color still separates the pair. */
-  .money-ico { display: inline; }
   .ref-deposit-btn,
-  .ref-withdraw-btn { min-width: 40px; height: 40px; padding: 0; gap: 0; }
+  .ref-withdraw-btn { min-width: 40px; height: 40px; padding: 0; gap: 0; justify-content: center; }
 }
 
 /* Reduced motion */
